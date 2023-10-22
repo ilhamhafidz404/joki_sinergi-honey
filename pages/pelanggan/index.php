@@ -1,152 +1,180 @@
 <?php
+session_start();
 require "./../../backend/pelanggan/listDataMadu.php";
+require "./../../backend/pelanggan/addToCart.php";
+
+
+if (!isset($_SESSION["login"])) {
+  header("Location: ./../auth/login.php");
+}
 ?>
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Sinergi Honey</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-  <link rel="stylesheet" href="./../../dist/css/pelanggan/index.css">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
+  <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
+  <title>
+    Argon Dashboard 2 by Creative Tim
+  </title>
+  <!--     Fonts and icons     -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
+  <!-- Nucleo Icons -->
+  <link href="./../../template/argon-dashboard/assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="./../../template/argon-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="./../../template/argon-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="./../../template/argon-dashboard/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
 
-<body>
-  <nav class="navbar navbar-expand-lg bg-light">
-    <div class="container">
-      <a class="navbar-brand" href="#">Sinergi Honey</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              Name Account
-            </a>
-            <ul class="dropdown-menu">
-              <li>
-                <a class="dropdown-item" href="#">Logout</a>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </div>
-
+<body class="g-sidenav-show   bg-gray-100">
+  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
+    <div class="sidenav-header">
+      <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
+        <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
+        <span class="ms-1 font-weight-bold">Argon Dashboard 2</span>
+      </a>
     </div>
-  </nav>
-
-  <main class="row">
-    <aside class="col-2 px-4">
-      <div class="list-group mt-3">
-        <button type="button" class="list-group-item list-group-item-action">
-          <i class="fa-solid fa-list"></i>
-          Produk
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          <i class="fa-solid fa-cart-shopping"></i>
-          Keranjang
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          <i class="fa-solid fa-money-check"></i>
-          Transaksi
-        </button>
-        <button type="button" class="list-group-item list-group-item-action">
-          <i class="fa-solid fa-file-invoice"></i>
-          Order
-        </button>
-      </div>
-    </aside>
-    <section class="col-10">
-
-
-      <section class="container row">
-
-        <div class="col-3"></div>
-        <div class="col-6 my-5">
-          <input type="text" class="form-control" placeholder="Cari Produk">
+    <hr class="horizontal dark mt-0">
+    <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link active" href="../pages/dashboard.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Dashboard</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/tables.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-cart text-danger text-sm opacity-10" aria-hidden="true"></i>
+            </div>
+            <span class="nav-link-text ms-1">Keranjang</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/billing.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Billing</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link " href="../pages/virtual-reality.html">
+            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
+              <i class="ni ni-app text-info text-sm opacity-10"></i>
+            </div>
+            <span class="nav-link-text ms-1">Virtual Reality</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </aside>
+  <main class="main-content position-relative border-radius-lg ">
+    <!-- Navbar -->
+    <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur" data-scroll="false">
+      <div class="container-fluid py-1 px-3">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
+            <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+          </ol>
+          <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+        </nav>
+        <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
+            <div class="input-group">
+              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+              <input type="text" class="form-control" placeholder="Type here...">
+            </div>
+          </div>
+          <ul class="navbar-nav  justify-content-end">
+            <li class="nav-item d-flex align-items-center">
+              <a href="./../../backend/auth/logout.php" class="nav-link text-white font-weight-bold px-0">
+                <i class="fa fa-user me-sm-1"></i>
+                <span class="d-sm-inline d-none">Log Out</span>
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="col-3"></div>
-
-        <?php foreach ($products as $product) : ?>
-          <div class="col-3 p-2">
-            <div class="card">
-              <img src="./../../assets/images/products/2.webp" class="card-img-top" alt="...">
-              <div class="card-body">
-                <h5 class="card-title">
-                  <?= $product["nama"] ?>
-                </h5>
-                <h4>Rp. <?= $product["harga"] ?></h4>
-                <a href="#" class="btn btn-warning w-100">
-                  <i class="fa-solid fa-cart-shopping"></i>
-                  Tambah ke Keranjang
-                </a>
+      </div>
+    </nav>
+    <!-- End Navbar -->
+    <div class="container-fluid py-4">
+      <div class="row mt-4">
+        <div class="col-lg-12 mb-lg-0 mb-4">
+          <div class="card">
+            <div class="card-header pb-0 pt-3 bg-transparent">
+              <h6 class="text-capitalize">List Produk Madu</h6>
+            </div>
+            <div class="card-body p-3">
+              <div class="row">
+                <?php foreach ($products as $product) : ?>
+                  <div class="col-3">
+                    <div class="card">
+                      <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
+                      <div class="card-body">
+                        <h5 class="card-title"><?= $product["nama"] ?></h5>
+                        <p class="card-text"><?= $product["harga"] ?></p>
+                        <form method="POST">
+                          <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
+                          <button class="btn btn-primary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
+                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                            Tambah ke Keranjang
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                <?php endforeach; ?>
               </div>
             </div>
           </div>
-        <?php endforeach; ?>
-
-        <div class="col-3 p-2">
-          <div class="card">
-            <img src="./../../assets/images/products/1.jpg" class="card-img-top">
-            <div class="card-body">
-              <h5 class="card-title">Madu ABC</h5>
-              <h4>Rp. 2000.000</h4>
-              <a href="#" class="btn btn-warning w-100">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Tambah ke Keranjang
-              </a>
+        </div>
+      </div>
+      <footer class="footer pt-3  ">
+        <div class="container-fluid">
+          <div class="row align-items-center justify-content-lg-between">
+            <div class="col-lg-6 mb-lg-0 mb-4">
+              <div class="copyright text-center text-sm text-muted text-lg-start">
+                © <script>
+                  document.write(new Date().getFullYear())
+                </script>,
+                made with <i class="fa fa-heart"></i> by
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
+                for a better web.
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
+                </li>
+                <li class="nav-item">
+                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
-        <div class="col-3 p-2">
-          <div class="card">
-            <img src="./../../assets/images/products/2.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Madu ABC</h5>
-              <h4>Rp. 2000.000</h4>
-              <a href="#" class="btn btn-warning w-100">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Tambah ke Keranjang
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-3 p-2">
-          <div class="card">
-            <img src="./../../assets/images/products/3.webp" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Madu ABC</h5>
-              <h4>Rp. 2000.000</h4>
-              <a href="#" class="btn btn-warning w-100">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Tambah ke Keranjang
-              </a>
-            </div>
-          </div>
-        </div>
-        <div class="col-3 p-2">
-          <div class="card">
-            <img src="./../../assets/images/products/4.jpg" class="card-img-top" alt="...">
-            <div class="card-body">
-              <h5 class="card-title">Madu ABC</h5>
-              <h4>Rp. 2000.000</h4>
-              <a href="#" class="btn btn-warning w-100">
-                <i class="fa-solid fa-cart-shopping"></i>
-                Tambah ke Keranjang
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-    </section>
+      </footer>
+    </div>
   </main>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
-
-  <!-- Font Awesome -->
-  <script src="https://kit.fontawesome.com/4b990370bb.js" crossorigin="anonymous"></script>
 </body>
 
 </html>
