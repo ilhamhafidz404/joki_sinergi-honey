@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/admin/addProduk.php";
+require "./../../backend/pelanggan/listDataMadu.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -16,7 +16,7 @@ if (!isset($_SESSION["login"])) {
   <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    Tambah Produk - Admin
+    List Produk - Admin
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -95,7 +95,7 @@ if (!isset($_SESSION["login"])) {
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-white active" aria-current="page">Produk</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Tambah Produk</h6>
+          <h6 class="font-weight-bolder text-white mb-0">List Data Madu</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -117,43 +117,32 @@ if (!isset($_SESSION["login"])) {
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row mt-4">
-        <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0">
-              <div class="d-flex align-items-center">
-                <p class="mb-0">Tambah Produk</p>
+      <a href="./addProduct.php" class="btn bg-gradient-secondary">Tambah Produk</a>
+      <div class="row">
+        <?php foreach ($products as $product) : ?>
+          <div class="col-3 mb-4">
+            <div class="card">
+              <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
+              <div class="card-body">
+                <h5 class="card-title"><?= $product["nama"] ?></h5>
+                <p class="card-text"><?= $product["harga"] ?></p>
+                <form method="POST">
+                  <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
+                  <div class="d-flex">
+                    <button type="button" class="btn btn-danger w-100 me-1" onclick="confirmDelete(<?= $product['id'] ?>)">
+                      <i class="fas fa-trash me-2"></i>
+                      Hapus
+                    </button>
+                    <a href="./editProduct.php?id=<?= $product['id'] ?>" class="btn btn-primary w-100 ms-1">
+                      <i class="fas fa-pen me-2"></i>
+                      Edit
+                    </a>
+                  </div>
+                </form>
               </div>
             </div>
-            <div class="card-body">
-              <form action="" method="POST" enctype="multipart/form-data">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Nama Produk</label>
-                      <input class="form-control" type="text" name="nama">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Harga Produk</label>
-                      <input class="form-control" type="number" name="harga">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Foto Produk</label>
-                      <input class="form-control" type="file" name="foto">
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <button class="btn btn-primary" name="submitProduct">Submit</button>
-                  </div>
-                </div>
-              </form>
-            </div>
           </div>
-        </div>
+        <?php endforeach; ?>
       </div>
       <footer class="footer pt-3  ">
         <div class="container-fluid">
@@ -172,6 +161,30 @@ if (!isset($_SESSION["login"])) {
       </footer>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script>
+    const confirmDelete = (id) => {
+      swal({
+          title: "Are you sure?",
+          text: "Are you sure that you want to leave this page?",
+          icon: "warning",
+          dangerMode: true,
+          buttons: {
+            confirm: "Yes",
+            cancel: true,
+          },
+        })
+        .then(willDelete => {
+          if (willDelete) {
+            swal("Deleted!", "Your imaginary file has been deleted!", "success");
+            setTimeout(() => {
+              window.location.href = "./../../backend/admin/deleteProduk.php?id=" + id;
+            }, 1500);
+          }
+        });
+    }
+  </script>
 </body>
 
 </html>

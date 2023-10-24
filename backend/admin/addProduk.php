@@ -15,4 +15,23 @@ if (isset($_POST["submitProduct"])) {
   $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
 
   mysqli_query($connect, "INSERT INTO products(`nama`, `harga`, `foto`) VALUES ('$nama', $harga, '$namaFile')");
+
+  echo '
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+
+      swal({
+        title: "Berhasil!",
+        text: "Produk Berhasil DItambahkan",
+        icon: "success",
+        timer: 1500,
+        button: false,
+      })
+    });
+
+    </script>
+  ';
 }

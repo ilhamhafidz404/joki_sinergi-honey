@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/admin/addProduk.php";
+require "./../../backend/admin/listPelanggan.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -52,15 +52,15 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./listProduct.php">
+          <a class="nav-link" href="./addProduct.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-box-2 text-danger text-sm opacity-10" aria-hidden="true"></i>
             </div>
-            <span class="nav-link-text ms-1">Produk</span>
+            <span class="nav-link-text ms-1">Tambah Produk</span>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./listPelanggan.php">
+          <a class="nav-link active" href="./addProduct.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-circle-08 text-success text-sm opacity-10" aria-hidden="true"></i>
             </div>
@@ -93,9 +93,9 @@ if (!isset($_SESSION["login"])) {
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Produk</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Data Pelanggan</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Tambah Produk</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Data Pelanggan</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -117,44 +117,50 @@ if (!isset($_SESSION["login"])) {
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row mt-4">
-        <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card">
+      <div class="row">
+        <div class="col-12">
+          <div class="card mb-4">
             <div class="card-header pb-0">
-              <div class="d-flex align-items-center">
-                <p class="mb-0">Tambah Produk</p>
-              </div>
+              <h6>Data Pelanggan</h6>
             </div>
-            <div class="card-body">
-              <form action="" method="POST" enctype="multipart/form-data">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Nama Produk</label>
-                      <input class="form-control" type="text" name="nama">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Harga Produk</label>
-                      <input class="form-control" type="number" name="harga">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Foto Produk</label>
-                      <input class="form-control" type="file" name="foto">
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <button class="btn btn-primary" name="submitProduct">Submit</button>
-                  </div>
-                </div>
-              </form>
+            <div class="card-body px-0 pt-0 pb-2">
+              <div class="table-responsive p-0">
+                <table class="table align-items-center mb-0">
+                  <thead>
+                    <tr>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pelanggan</th>
+                      <th class="text-secondary opacity-7">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <?php foreach ($pelanggan as $row) : ?>
+                      <tr>
+                        <td>
+                          <div class="d-flex px-2 py-1">
+                            <div>
+                              <img src="./../../template/argon-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
+                            </div>
+                            <div class="d-flex flex-column justify-content-center">
+                              <h6 class="mb-0 text-sm"><?= $row["nama"] ?></h6>
+                              <p class="text-xs text-secondary mb-0"><?= $row["email"] ?></p>
+                            </div>
+                          </div>
+                        </td>
+                        <td class="align-middle">
+                          <button class="btn btn-danger">
+                            <i class="fas fa-trash"></i>
+                          </button>
+                        </td>
+                      </tr>
+                    <?php endforeach; ?>
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">

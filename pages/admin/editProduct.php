@@ -1,7 +1,8 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/admin/addProduk.php";
+require "./../../backend/admin/getProdukById.php";
+require "./../../backend/admin/editProduk.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -95,7 +96,7 @@ if (!isset($_SESSION["login"])) {
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-white active" aria-current="page">Produk</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Tambah Produk</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Edit Produk</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -122,34 +123,36 @@ if (!isset($_SESSION["login"])) {
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0">Tambah Produk</p>
+                <p class="mb-0">Edit Produk</p>
               </div>
             </div>
             <div class="card-body">
               <form action="" method="POST" enctype="multipart/form-data">
-                <div class="row">
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Nama Produk</label>
-                      <input class="form-control" type="text" name="nama">
+                <?php foreach ($product as $row) : ?>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Nama Produk</label>
+                        <input class="form-control" type="text" name="nama" value="<?= $row['nama'] ?>">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Harga Produk</label>
+                        <input class="form-control" type="number" name="harga" value="<?= $row['harga'] ?>">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Foto Produk</label>
+                        <input class="form-control" type="file" name="foto">
+                      </div>
+                    </div>
+                    <div class="col-12">
+                      <button class="btn btn-primary" name="submitProduct">Submit</button>
                     </div>
                   </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Harga Produk</label>
-                      <input class="form-control" type="number" name="harga">
-                    </div>
-                  </div>
-                  <div class="col-md-6">
-                    <div class="form-group">
-                      <label for="example-text-input" class="form-control-label">Foto Produk</label>
-                      <input class="form-control" type="file" name="foto">
-                    </div>
-                  </div>
-                  <div class="col-12">
-                    <button class="btn btn-primary" name="submitProduct">Submit</button>
-                  </div>
-                </div>
+                <?php endforeach; ?>
               </form>
             </div>
           </div>
