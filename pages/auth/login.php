@@ -55,7 +55,7 @@ if (isset($_SESSION["login"])) {
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
                     Don't have an account?
-                    <a href="javascript:;" class="text-primary text-gradient font-weight-bold">Sign up</a>
+                    <a href="./register.php" class="text-primary text-gradient font-weight-bold">Sign up</a>
                   </p>
                 </div>
               </div>

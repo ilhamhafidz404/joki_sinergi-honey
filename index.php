@@ -78,16 +78,13 @@ require "./backend/pelanggan/listDataMaduLimit.php";
             <img src="./assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
             <div class="card-body">
               <h5 class="card-title"><?= $product["nama"] ?></h5>
-              <p class="card-text"><?= $product["harga"] ?></p>
-              <form method="POST">
-                <input type="text" value="<?= $product['nama'] ?>" name="productName" hidden>
-                <input type="text" value="<?= $product['harga'] ?>" name="productPrice" hidden>
-                <input type="text" value="<?= $product['foto'] ?>" name="productImage" hidden>
-                <button class="btn btn-primary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
-                  <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                  Tambah ke Keranjang
-                </button>
-              </form>
+              <p class="card-text">
+                <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
+              </p>
+              <button class="btn btn-primary w-100" onclick="youMustLogin()">
+                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                Beli
+              </button>
             </div>
           </div>
         </div>
@@ -223,6 +220,13 @@ require "./backend/pelanggan/listDataMaduLimit.php";
 
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script type="text/javascript">
+    const youMustLogin = () => {
+      swal("Tidak Bisa Beli", "Silahkan Login atau Daftar Dahulu", "error");
+    }
+  </script>
 </body>
 
 </html>
