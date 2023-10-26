@@ -53,7 +53,7 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/tables.html">
+          <a class="nav-link " href="./keranjang.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-cart text-danger text-sm opacity-10" aria-hidden="true"></i>
             </div>
@@ -126,7 +126,9 @@ if (!isset($_SESSION["login"])) {
                         <h5 class="card-title"><?= $product["nama"] ?></h5>
                         <p class="card-text"><?= $product["harga"] ?></p>
                         <form method="POST">
-                          <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
+                          <input type="text" value="<?= $product['nama'] ?>" name="productName" hidden>
+                          <input type="text" value="<?= $product['harga'] ?>" name="productPrice" hidden>
+                          <input type="text" value="<?= $product['foto'] ?>" name="productImage" hidden>
                           <button class="btn btn-primary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
                             <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
                             Tambah ke Keranjang

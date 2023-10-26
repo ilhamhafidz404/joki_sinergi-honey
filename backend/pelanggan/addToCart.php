@@ -2,9 +2,11 @@
 
 if (isset($_POST["addToCart"])) {
   $accountId = $_SESSION["id"];
-  $productId = $_POST["productId"];
+  $productName = $_POST["productName"];
+  $productPrice = $_POST["productPrice"];
+  $productImage = $_POST["productImage"];
 
-  mysqli_query($connect, "INSERT INTO carts (`account_id`, `product_id`) VALUES ($accountId, $productId)");
+  mysqli_query($connect, "INSERT INTO carts (`account_id`, `product_name`, `product_price`, `product_image`) VALUES ($accountId, '$productName', $productPrice, '$productImage')");
 
   if (mysqli_affected_rows($connect)) {
     echo "
