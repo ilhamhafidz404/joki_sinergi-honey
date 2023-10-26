@@ -35,9 +35,8 @@ if (!isset($_SESSION["login"])) {
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Argon Dashboard 2</span>
+      <a class="navbar-brand m-0">
+        <span class="ms-1 font-weight-bold">Sinergi Honey</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -125,7 +124,9 @@ if (!isset($_SESSION["login"])) {
               <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
               <div class="card-body">
                 <h5 class="card-title"><?= $product["nama"] ?></h5>
-                <p class="card-text"><?= $product["harga"] ?></p>
+                <p class="card-text">
+                  <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
+                </p>
                 <form method="POST">
                   <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
                   <div class="d-flex">
