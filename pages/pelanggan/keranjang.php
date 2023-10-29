@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "./../../backend/pelanggan/listDataMadu.php";
+require "./../../backend/connection.php";
 require "./../../backend/pelanggan/listCart.php";
 require "./../../backend/pelanggan/deleteFromCart.php";
 
@@ -61,11 +61,11 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/billing.html">
+          <a class="nav-link " href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">Transaksi</span>
           </a>
         </li>
         <li class="nav-item">
@@ -86,9 +86,9 @@ if (!isset($_SESSION["login"])) {
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Keranjang</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Keranjang</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -127,6 +127,10 @@ if (!isset($_SESSION["login"])) {
                         <p class="card-text"><?= $product["product_price"] ?></p>
                         <form method="POST">
                           <input type="text" value="<?= $product['id'] ?>" name="cartDeleteId" hidden>
+                          <a href="./transaksi.php" class="btn btn-success w-100">
+                            <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                            Beli Produk
+                          </a>
                           <button class="btn btn-danger w-100" name="deleteFromCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
                             <i class="fas fa-trash" aria-hidden="true"></i>
                             Hapus dari Keranjang

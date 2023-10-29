@@ -1,8 +1,8 @@
 <?php
 session_start();
-require "./../../backend/pelanggan/listDataMadu.php";
-require "./../../backend/pelanggan/addToCart.php";
-
+require "./../../backend/connection.php";
+require "./../../backend/pelanggan/listCart.php";
+require "./../../backend/pelanggan/deleteFromCart.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -45,7 +45,7 @@ if (!isset($_SESSION["login"])) {
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="../pages/dashboard.html">
+          <a class="nav-link" href="./index.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
             </div>
@@ -53,7 +53,7 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./keranjang.php">
+          <a class="nav-link" href="./keranjang.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-cart text-danger text-sm opacity-10" aria-hidden="true"></i>
             </div>
@@ -61,7 +61,7 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./transaksi.php">
+          <a class="nav-link active" href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
@@ -86,9 +86,9 @@ if (!isset($_SESSION["login"])) {
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Dashboard</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Keranjang</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Keranjang</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -114,32 +114,89 @@ if (!isset($_SESSION["login"])) {
         <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-header pb-0 pt-3 bg-transparent">
-              <h6 class="text-capitalize">List Produk Madu</h6>
+              <h6 class="text-capitalize">Transaksi</h6>
             </div>
-            <div class="card-body p-3">
-              <div class="row">
-                <?php foreach ($products as $product) : ?>
-                  <div class="col-3">
-                    <div class="card">
-                      <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
-                      <div class="card-body">
-                        <h5 class="card-title"><?= $product["nama"] ?></h5>
-                        <p class="card-text"><?= $product["harga"] ?></p>
-                        <form method="POST">
-                          <input type="text" value="<?= $product['nama'] ?>" name="productName" hidden>
-                          <input type="text" value="<?= $product['harga'] ?>" name="productPrice" hidden>
-                          <input type="text" value="<?= $product['foto'] ?>" name="productImage" hidden>
-                          <button class="btn btn-primary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
-                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                            Tambah ke Keranjang
-                          </button>
-                        </form>
-                      </div>
-                    </div>
+            <section class="p-4">
+              <form action="">
+                <div class="row">
+                  <div class="col-12 mb-3">
+                    <label for="">Produk</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected hidden>Pilih Produk</option>
+                      <?php foreach ($cartList as $product) : ?>
+                        <option value=""><?= $product["product_name"] ?></option>
+                      <?php endforeach; ?>
+                    </select>
                   </div>
-                <?php endforeach; ?>
-              </div>
-            </div>
+                  <div class="col-3 mb-3">
+                    <label for="">Desa</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected hidden>Pilih Desa</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-3 mb-3">
+                    <label for="">Kecamatan</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected hidden>Pilih Kecamatan</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-3 mb-3">
+                    <label for="">Kabupaten</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected hidden>Pilih Kabupaten</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-3 mb-3">
+                    <label for="">Kota</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected hidden>Pilih Kota</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-12 mb-3">
+                    <label for="">Alamat</label>
+                    <textarea class="form-control" rows="5"></textarea>
+                  </div>
+                  <div class="col-3">
+                    <label for="">Pilih Ekpedisi</label>
+                    <br>
+                    <input type="radio" name="ekspedisi">
+                    <label for="" class="me-4">JNE</label>
+                    <input type="radio" name="ekspedisi">
+                    <label for="">JNT</label>
+                  </div>
+                  <div class="col-4 mb-3">
+                    <label for="">Metode Pembayaran</label>
+                    <select class="form-select" aria-label="Default select example">
+                      <option selected hidden>Pilih Metode Pembayaran</option>
+                      <option value="1">One</option>
+                      <option value="2">Two</option>
+                      <option value="3">Three</option>
+                    </select>
+                  </div>
+                  <div class="col-5 mb-3">
+                    <label for="formFile" class="form-label">Default file input example</label>
+                    <input class="form-control" type="file" id="formFile">
+                  </div>
+                  <div class="d-flex justify-content-end">
+                    <button class="btn btn-primary">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </section>
           </div>
         </div>
       </div>
