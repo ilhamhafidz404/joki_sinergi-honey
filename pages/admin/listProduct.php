@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/pelanggan/listDataMadu.php";
+require "./../../backend/listDataMadu.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -67,11 +67,11 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/billing.html">
+          <a class="nav-link " href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Billing</span>
+            <span class="nav-link-text ms-1">Transaksi</span>
           </a>
         </li>
         <li class="nav-item">

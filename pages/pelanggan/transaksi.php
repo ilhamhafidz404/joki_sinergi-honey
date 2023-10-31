@@ -1,8 +1,8 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/pelanggan/listCart.php";
-require "./../../backend/pelanggan/deleteFromCart.php";
+require "./../../backend/listCart.php";
+require "./../../backend/submitTransaction.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -69,11 +69,11 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
+          <a class="nav-link " href="./history.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1">History Transaksi</span>
           </a>
         </li>
       </ul>
@@ -86,9 +86,9 @@ if (!isset($_SESSION["login"])) {
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Keranjang</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Transaksi</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Keranjang</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Transaksi</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -117,80 +117,62 @@ if (!isset($_SESSION["login"])) {
               <h6 class="text-capitalize">Transaksi</h6>
             </div>
             <section class="p-4">
-              <form action="">
+              <form method="POST" enctype="multipart/form-data">
                 <div class="row">
                   <div class="col-12 mb-3">
-                    <label for="">Produk</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label for="product">Produk</label>
+                    <select class="form-select" name="product" id="product">
                       <option selected hidden>Pilih Produk</option>
                       <?php foreach ($cartList as $product) : ?>
-                        <option value=""><?= $product["product_name"] ?></option>
+                        <option value="<?= $product["id"] ?>">
+                          <?= $product["product_name"] ?>
+                          ( Rp <?= $product["product_price"] ?>)
+                        </option>
                       <?php endforeach; ?>
                     </select>
                   </div>
                   <div class="col-3 mb-3">
-                    <label for="">Desa</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected hidden>Pilih Desa</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
+                    <label for="village">Desa</label>
+                    <input type="text" class="form-control" id="village" name="village">
                   </div>
                   <div class="col-3 mb-3">
-                    <label for="">Kecamatan</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected hidden>Pilih Kecamatan</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
+                    <label for="subdistrict">Kecamatan</label>
+                    <input type="text" class="form-control" id="subdistrict" name="subdistrict">
                   </div>
                   <div class="col-3 mb-3">
-                    <label for="">Kabupaten</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected hidden>Pilih Kabupaten</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
+                    <label for="district">Kabupaten</label>
+                    <input type="text" class="form-control" id="district" name="district">
                   </div>
                   <div class="col-3 mb-3">
-                    <label for="">Kota</label>
-                    <select class="form-select" aria-label="Default select example">
-                      <option selected hidden>Pilih Kota</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
-                    </select>
+                    <label for="city">Kota</label>
+                    <input type="text" class="form-control" id="city" name="city">
                   </div>
                   <div class="col-12 mb-3">
-                    <label for="">Alamat</label>
-                    <textarea class="form-control" rows="5"></textarea>
+                    <label for="address">Alamat</label>
+                    <textarea class="form-control" rows="5" id="address" name="address"></textarea>
                   </div>
                   <div class="col-3">
                     <label for="">Pilih Ekpedisi</label>
                     <br>
-                    <input type="radio" name="ekspedisi">
-                    <label for="" class="me-4">JNE</label>
-                    <input type="radio" name="ekspedisi">
-                    <label for="">JNT</label>
+                    <input type="radio" name="expedition" id="JNE" value="JNE">
+                    <label for="JNE" class="me-4">JNE</label>
+                    <input type="radio" name="expedition" id="JNT" value="JNT">
+                    <label for="JNT">JNT</label>
                   </div>
                   <div class="col-4 mb-3">
-                    <label for="">Metode Pembayaran</label>
-                    <select class="form-select" aria-label="Default select example">
+                    <label for="payment_method">Metode Pembayaran</label>
+                    <select class="form-select" id="payment_method" name="payment_method">
                       <option selected hidden>Pilih Metode Pembayaran</option>
-                      <option value="1">One</option>
-                      <option value="2">Two</option>
-                      <option value="3">Three</option>
+                      <option value="BRI">BRI : 4266 0104 6708 537 (MOH SAHERI)</option>
+                      <option value="DANA">DANA : 085863836003 (MOH SAHERI)</option>
                     </select>
                   </div>
                   <div class="col-5 mb-3">
-                    <label for="formFile" class="form-label">Default file input example</label>
-                    <input class="form-control" type="file" id="formFile">
+                    <label for="payment_proof" class="form-label">Bukti Pembayaran</label>
+                    <input class="form-control" type="file" name="payment_proof" id="payment_proof">
                   </div>
                   <div class="d-flex justify-content-end">
-                    <button class="btn btn-primary">
+                    <button name="submitTransaction" class="btn btn-primary">
                       Submit
                     </button>
                   </div>

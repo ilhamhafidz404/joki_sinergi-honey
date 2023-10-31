@@ -1,8 +1,8 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/pelanggan/listCart.php";
-require "./../../backend/pelanggan/deleteFromCart.php";
+require "./../../backend/listCart.php";
+require "./../../backend/deleteFromCart.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -69,11 +69,11 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
+          <a class="nav-link " href="./history.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-app text-info text-sm opacity-10"></i>
             </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
+            <span class="nav-link-text ms-1">History Transaksi</span>
           </a>
         </li>
       </ul>

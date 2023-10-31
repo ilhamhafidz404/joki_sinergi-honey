@@ -1,8 +1,9 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/getProdukById.php";
-require "./../../backend/editProduk.php";
+require "./../../backend/listDataTransaksi.php";
+require "./../../backend/approveTransaksi.php";
+require "./../../backend/rejectTransaksi.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -17,7 +18,7 @@ if (!isset($_SESSION["login"])) {
   <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    Tambah Produk - Admin
+    List Produk - Admin
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -52,7 +53,7 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link active" href="./listProduct.php">
+          <a class="nav-link" href="./listProduct.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-box-2 text-danger text-sm opacity-10" aria-hidden="true"></i>
             </div>
@@ -68,7 +69,7 @@ if (!isset($_SESSION["login"])) {
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link " href="./transaksi.php">
+          <a class="nav-link active" href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
@@ -93,9 +94,9 @@ if (!isset($_SESSION["login"])) {
         <nav aria-label="breadcrumb">
           <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
-            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Produk</li>
+            <li class="breadcrumb-item text-sm text-white active" aria-current="page">Transaksi</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">Edit Produk</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Data Transaksi</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -117,43 +118,78 @@ if (!isset($_SESSION["login"])) {
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row mt-4">
-        <div class="col-lg-12 mb-lg-0 mb-4">
-          <div class="card">
-            <div class="card-header pb-0">
-              <div class="d-flex align-items-center">
-                <p class="mb-0">Edit Produk</p>
-              </div>
+      <div class="row">
+        <div class="card">
+          <div class="card-header pb-0 px-3 d-flex align-items-center justify-content-between">
+            <h6 class="mb-0"> Data Transaksi</h6>
+            <div>
+              <button class="btn btn-neutral">All</button>
+              <button class="btn btn-warning">Pending</button>
+              <button class="btn btn-danger">Reject</button>
+              <button class="btn btn-success">Approve</button>
             </div>
-            <div class="card-body">
-              <form action="" method="POST" enctype="multipart/form-data">
-                <?php foreach ($product as $row) : ?>
-                  <div class="row">
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Nama Produk</label>
-                        <input class="form-control" type="text" name="nama" value="<?= $row['nama'] ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Harga Produk</label>
-                        <input class="form-control" type="number" name="harga" value="<?= $row['harga'] ?>">
-                      </div>
-                    </div>
-                    <div class="col-md-6">
-                      <div class="form-group">
-                        <label for="example-text-input" class="form-control-label">Foto Produk</label>
-                        <input class="form-control" type="file" name="foto">
-                      </div>
-                    </div>
-                    <div class="col-12">
-                      <button class="btn btn-primary" name="submitProduct">Submit</button>
-                    </div>
+          </div>
+          <div class="card-body pt-4 p-3">
+            <ul class="list-group row">
+              <?php foreach ($transactions as $transaction) : ?>
+                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg col-6">
+                  <div class="d-flex flex-column">
+                    <h6 class="mb-3 text-sm"><?= $transaction["account_name"] ?></h6>
+                    <span class="mb-2 text-xs">
+                      Produk :
+                      <span class="text-dark font-weight-bold ms-sm-2">
+                        <?= $transaction["product_name"] ?>
+                        (Rp <?= $transaction["product_price"] ?>)
+                      </span>
+                    </span>
+                    <span class="mb-2 text-xs">
+                      Address:
+                      <span class="text-dark ms-sm-2 font-weight-bold">
+                        <?= $transaction["address"] ?>
+                      </span>
+                    </span>
+                    <span class="mb-2 text-xs">
+                      Payment Method
+                      <span class="text-dark ms-sm-2 font-weight-bold">
+                        <?= $transaction["payment_method"] ?>
+                      </span>
+                    </span>
+                    <span class="text-xs">
+                      Status
+                      <?php if ($transaction["status"] == "pending") : ?>
+                        <span class="badge bg-warning">
+                          Pending
+                        </span>
+                      <?php endif; ?>
+                      <?php if ($transaction["status"] == "approve") : ?>
+                        <span class="badge bg-success">
+                          Approve
+                        </span>
+                      <?php endif; ?>
+                      <?php if ($transaction["status"] == "reject") : ?>
+                        <span class="badge bg-danger">
+                          Reject
+                        </span>
+                      <?php endif; ?>
+                    </span>
                   </div>
-                <?php endforeach; ?>
-              </form>
-            </div>
+                  <div class="ms-auto text-end d-flex">
+                    <form method="POST" class="me-2">
+                      <input type="text" value="<?= $transaction["id"] ?>" name="approvedId" hidden>
+                      <button name="approve" class="btn btn-success">
+                        Approve
+                      </button>
+                    </form>
+                    <form method="POST">
+                      <input type="text" value="<?= $transaction["id"] ?>" name="rejectedId" hidden>
+                      <button name="reject" class="btn btn-danger">
+                        Reject
+                      </button>
+                    </form>
+                  </div>
+                </li>
+              <?php endforeach; ?>
+            </ul>
           </div>
         </div>
       </div>
@@ -174,6 +210,30 @@ if (!isset($_SESSION["login"])) {
       </footer>
     </div>
   </main>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script>
+    const confirmDelete = (id) => {
+      swal({
+          title: "Are you sure?",
+          text: "Are you sure that you want to leave this page?",
+          icon: "warning",
+          dangerMode: true,
+          buttons: {
+            confirm: "Yes",
+            cancel: true,
+          },
+        })
+        .then(willDelete => {
+          if (willDelete) {
+            swal("Deleted!", "Your imaginary file has been deleted!", "success");
+            setTimeout(() => {
+              window.location.href = "./../../backend/admin/deleteProduk.php?id=" + id;
+            }, 1500);
+          }
+        });
+    }
+  </script>
 </body>
 
 </html>

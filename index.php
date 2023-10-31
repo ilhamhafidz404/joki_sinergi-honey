@@ -1,6 +1,6 @@
 <?php
 require "./backend/connection.php";
-require "./backend/pelanggan/listDataMaduLimit.php";
+require "./backend/listDataMaduLimit.php";
 ?>
 <!doctype html>
 <html lang="en">
