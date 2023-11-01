@@ -25,7 +25,7 @@ if (isset($_POST["submitProduct"])) {
 
       swal({
         title: "Berhasil!",
-        text: "Produk Berhasil DItambahkan",
+        text: "Produk Berhasil Ditambahkan",
         icon: "success",
         timer: 1500,
         button: false,

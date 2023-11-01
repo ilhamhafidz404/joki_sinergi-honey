@@ -115,53 +115,60 @@ if (!isset($_SESSION["login"])) {
             <div class="card-header pb-0 pt-3 bg-transparent">
               <h6 class="text-capitalize">Transaksi</h6>
             </div>
-            <div class="card-body pt-4 p-">
-              <ul class="list-group row">
+            <div class="card-body pt-4 p-4">
+              <div class="row">
                 <?php foreach ($transactions as $transaction) : ?>
-                  <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg col-6">
-                    <div class="d-flex flex-column">
-                      <h6 class="mb-3 text-sm"><?= $transaction["account_name"] ?></h6>
-                      <span class="mb-2 text-xs">
-                        Produk :
-                        <span class="text-dark font-weight-bold ms-sm-2">
-                          <?= $transaction["product_name"] ?>
-                          (Rp <?= $transaction["product_price"] ?>)
-                        </span>
-                      </span>
-                      <span class="mb-2 text-xs">
-                        Address:
-                        <span class="text-dark ms-sm-2 font-weight-bold">
-                          <?= $transaction["address"] ?>
-                        </span>
-                      </span>
-                      <span class="mb-2 text-xs">
-                        Payment Method
-                        <span class="text-dark ms-sm-2 font-weight-bold">
-                          <?= $transaction["payment_method"] ?>
-                        </span>
-                      </span>
-                      <span class="text-xs">
-                        Status
-                        <?php if ($transaction["status"] == "pending") : ?>
-                          <span class="badge bg-warning">
-                            Pending
+                  <div class="col-6 mb-3">
+                    <div class="border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg position-relative">
+                      <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm"><?= $transaction["account_name"] ?></h6>
+                        <span class="mb-2 text-xs">
+                          Produk :
+                          <span class="text-dark font-weight-bold ms-sm-2">
+                            <?= $transaction["product_name"] ?>
+                            (Rp <?= $transaction["product_price"] ?>)
                           </span>
-                        <?php endif; ?>
-                        <?php if ($transaction["status"] == "approve") : ?>
-                          <span class="badge bg-success">
-                            Approve
+                        </span>
+                        <span class="mb-2 text-xs">
+                          Address:
+                          <span class="text-dark ms-sm-2 font-weight-bold">
+                            <?= $transaction["address"] ?>
                           </span>
-                        <?php endif; ?>
-                        <?php if ($transaction["status"] == "reject") : ?>
-                          <span class="badge bg-danger">
-                            Reject
+                        </span>
+                        <span class="mb-2 text-xs">
+                          Payment Method
+                          <span class="text-dark ms-sm-2 font-weight-bold">
+                            <?= $transaction["payment_method"] ?>
                           </span>
-                        <?php endif; ?>
-                      </span>
+                        </span>
+                        <span class="text-xs">
+                          Status
+                          <?php if ($transaction["status"] == "pending") : ?>
+                            <span class="badge bg-warning">
+                              Pending
+                            </span>
+                          <?php endif; ?>
+                          <?php if ($transaction["status"] == "approve") : ?>
+                            <span class="badge bg-success">
+                              Approve
+                            </span>
+                          <?php endif; ?>
+                          <?php if ($transaction["status"] == "reject") : ?>
+                            <span class="badge bg-danger">
+                              Reject
+                            </span>
+                          <?php endif; ?>
+                        </span>
+                      </div>
+                      <div class="m-3 position-absolute top-0 end-0">
+                        <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-info" target="_blank">
+                          <i class="fas fa-download"></i>
+                        </a>
+                      </div>
                     </div>
-                  </li>
+                  </div>
                 <?php endforeach; ?>
-              </ul>
+              </div>
             </div>
           </div>
         </div>
