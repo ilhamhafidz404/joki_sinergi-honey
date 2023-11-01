@@ -2,6 +2,7 @@
 session_start();
 require "./../../backend/connection.php";
 require "./../../backend/listPelanggan.php";
+require "./../../backend/editAccount.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -27,6 +28,7 @@ if (!isset($_SESSION["login"])) {
   <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
   <link href="./../../template/argon-dashboard/assets/css/nucleo-svg.css" rel="stylesheet" />
   <!-- CSS Files -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
   <link id="pagestyle" href="./../../template/argon-dashboard/assets/css/argon-dashboard.css?v=2.0.4" rel="stylesheet" />
 </head>
 
@@ -146,6 +148,9 @@ if (!isset($_SESSION["login"])) {
                           </div>
                         </td>
                         <td class="align-middle">
+                          <button class="btn btn-info" onclick="showModalEdit(<?= $row['id'] ?>, '<?= $row['nama'] ?>', '<?= $row['email'] ?>', '<?= $row['password'] ?>')" data-bs-toggle="modal" data-bs-target="#editAccount">
+                            <i class="fas fa-pen"></i>
+                          </button>
                           <button class="btn btn-danger">
                             <i class="fas fa-trash"></i>
                           </button>
@@ -159,6 +164,52 @@ if (!isset($_SESSION["login"])) {
           </div>
         </div>
       </div>
+
+      <!-- Modal -->
+      <div class="modal fade" id="editAccount">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Edit</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form action="" method="POST">
+                <input type="text" name="id" id="id" hidden>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="ni ni-circle-08" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Nama" name="nama" id="nama">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="ni ni-email-83" aria-hidden="true"></i>
+                    </span>
+                    <input type="text" class="form-control" placeholder="Email" name="email" id="email">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <span class="input-group-text">
+                      <i class="fas fa-lock"></i>
+                    </span>
+                    <input type="password" class="form-control" placeholder="Password" name="password" id="password">
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-primary" name="editProduct"> Save</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+
 
       <footer class="footer pt-3  ">
         <div class="container-fluid">
@@ -177,6 +228,22 @@ if (!isset($_SESSION["login"])) {
       </footer>
     </div>
   </main>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script>
+    const showModalEdit = (id, nama, email, password) => {
+      const inputId = document.getElementById("id");
+      const inputName = document.getElementById("nama");
+      const inputEmail = document.getElementById("email");
+      const inputPassword = document.getElementById("password");
+
+      inputId.value = id;
+      inputName.value = nama;
+      inputEmail.value = email;
+      inputPassword.value = password;
+    }
+  </script>
 </body>
 
 </html>
