@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "./../../backend/connection.php";
-require "./../../backend/getTransaksiByAccountId.php";
+require "./../../backend/listDataTransaksi.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -44,35 +44,11 @@ if (!isset($_SESSION["login"])) {
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" href="./index.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Dashboard</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./keranjang.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-cart text-danger text-sm opacity-10" aria-hidden="true"></i>
-            </div>
-            <span class="nav-link-text ms-1">Keranjang</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="./transaksi.php">
+          <a class="nav-link active" href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Transaksi</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link active" href="./history.php">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">History Transaksi</span>
           </a>
         </li>
       </ul>
@@ -87,7 +63,7 @@ if (!isset($_SESSION["login"])) {
             <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white" href="javascript:;">Pages</a></li>
             <li class="breadcrumb-item text-sm text-white active" aria-current="page">Transaksi</li>
           </ol>
-          <h6 class="font-weight-bolder text-white mb-0">History Transaksi</h6>
+          <h6 class="font-weight-bolder text-white mb-0">Data Transaksi</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
@@ -112,8 +88,11 @@ if (!isset($_SESSION["login"])) {
       <div class="row mt-4">
         <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="card">
-            <div class="card-header pb-0 pt-3 bg-transparent">
+            <div class="card-header d-flex align-items-center justify-content-between pb-0 pt-3 bg-transparent">
               <h6 class="text-capitalize">Transaksi</h6>
+              <a href="./../../backend/exportTransaksiApprove.php" class="btn btn-success btn-sm">
+                Cetak Data Transaksi
+              </a>
             </div>
             <div class="card-body pt-4 p-4">
               <div class="row">

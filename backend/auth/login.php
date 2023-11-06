@@ -21,8 +21,28 @@ if (isset($_POST["submit"])) {
       return header("Location: ./../../pages/pelanggan/index.php");
     } else if ($_SESSION["role"] == "admin") {
       return header("Location: ./../../pages/admin/index.php");
+    } else if ($_SESSION["role"] == "pemilik") {
+      return header("Location: ./../../pages/pemilik/index.php");
     }
   } else {
-    echo "takde";
+    echo '
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <script type="text/javascript">
+
+    $(document).ready(function(){
+      swal({
+        title: "Gagal Login!",
+        text: "Email atau Password Salah",
+        icon: "error",
+        timer: 1500,
+        button: false,
+      })
+    });
+    setTimeout(function(){
+      history.back()
+    }, 2000)
+    </script>
+  ';
   }
 }
