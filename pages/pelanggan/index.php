@@ -15,10 +15,8 @@ if (!isset($_SESSION["login"])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    Argon Dashboard 2 by Creative Tim
+    Produk - Pelanggan
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -133,7 +131,9 @@ if (!isset($_SESSION["login"])) {
                       <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
                       <div class="card-body">
                         <h5 class="card-title"><?= $product["nama"] ?></h5>
-                        <p class="card-text"><?= $product["harga"] ?></p>
+                        <p class="card-text">
+                          <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
+                        </p>
                         <form method="POST">
                           <input type="text" value="<?= $product['nama'] ?>" name="productName" hidden>
                           <input type="text" value="<?= $product['harga'] ?>" name="productPrice" hidden>

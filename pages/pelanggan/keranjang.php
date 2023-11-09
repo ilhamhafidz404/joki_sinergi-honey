@@ -14,10 +14,8 @@ if (!isset($_SESSION["login"])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    Argon Dashboard 2 by Creative Tim
+    Keranjang - Pelanggan
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -122,7 +120,7 @@ if (!isset($_SESSION["login"])) {
         <div class="col-lg-12 mb-lg-0 mb-4">
           <div class="card">
             <div class="card-header pb-0 pt-3 bg-transparent">
-              <h6 class="text-capitalize">List Produk Madu</h6>
+              <h6 class="text-capitalize">List Keranjang Madu</h6>
             </div>
             <div class="card-body p-3">
               <div class="row">
@@ -132,7 +130,9 @@ if (!isset($_SESSION["login"])) {
                       <img src="./../../assets/images/products/<?= $product["product_image"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
                       <div class="card-body">
                         <h5 class="card-title"><?= $product["product_name"] ?></h5>
-                        <p class="card-text"><?= $product["product_price"] ?></p>
+                        <p class="card-text">
+                          <?= "Rp " . number_format($product["product_price"], 0, ',', '.') ?>
+                        </p>
                         <form method="POST">
                           <input type="text" value="<?= $product['id'] ?>" name="cartDeleteId" hidden>
                           <a href="./transaksi.php" class="btn btn-warning w-100">

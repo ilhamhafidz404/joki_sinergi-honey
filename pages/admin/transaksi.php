@@ -15,10 +15,8 @@ if (!isset($_SESSION["login"])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    List Produk - Admin
+    Transaksi - Admin
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -189,6 +187,20 @@ if (!isset($_SESSION["login"])) {
                         </form>
                       <?php endif; ?>
                       <?php if ($transaction["status"] == "reject") : ?>
+                        <form method="POST" class="me-2">
+                          <input type="text" value="<?= $transaction["id"] ?>" name="approvedId" hidden>
+                          <button name="approve" class="btn btn-success btn-sm px-3">
+                            Approve
+                          </button>
+                        </form>
+                      <?php endif; ?>
+                      <?php if ($transaction["status"] == "pending") : ?>
+                        <form method="POST" class="me-2">
+                          <input type="text" value="<?= $transaction["id"] ?>" name="rejectedId" hidden>
+                          <button name="reject" class="btn btn-danger btn-sm px-3">
+                            Reject
+                          </button>
+                        </form>
                         <form method="POST" class="me-2">
                           <input type="text" value="<?= $transaction["id"] ?>" name="approvedId" hidden>
                           <button name="approve" class="btn btn-success btn-sm px-3">
