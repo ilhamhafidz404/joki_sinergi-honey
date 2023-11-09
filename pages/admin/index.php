@@ -14,10 +14,8 @@ if (!isset($_SESSION["login"])) {
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
-  <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    Argon Dashboard 2 by Creative Tim
+    Dashboard - Admin
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -32,7 +30,7 @@ if (!isset($_SESSION["login"])) {
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
-  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <div class="min-height-300 bg-gradient-warning position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
@@ -46,7 +44,7 @@ if (!isset($_SESSION["login"])) {
         <li class="nav-item">
           <a class="nav-link active" href="./index.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-tv-2 text-primary text-sm opacity-10"></i>
+              <i class="ni ni-tv-2 text-warning text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Dashboard</span>
           </a>
@@ -54,7 +52,7 @@ if (!isset($_SESSION["login"])) {
         <li class="nav-item">
           <a class="nav-link" href="./listProduct.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-box-2 text-danger text-sm opacity-10" aria-hidden="true"></i>
+              <i class="ni ni-box-2 text-warning text-sm opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Produk</span>
           </a>
@@ -62,7 +60,7 @@ if (!isset($_SESSION["login"])) {
         <li class="nav-item">
           <a class="nav-link" href="./listPelanggan.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-circle-08 text-success text-sm opacity-10" aria-hidden="true"></i>
+              <i class="ni ni-circle-08 text-warning text-sm opacity-10" aria-hidden="true"></i>
             </div>
             <span class="nav-link-text ms-1">Data Pelanggan</span>
           </a>
@@ -70,17 +68,9 @@ if (!isset($_SESSION["login"])) {
         <li class="nav-item">
           <a class="nav-link " href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-credit-card text-warning text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Transaksi</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link " href="../pages/virtual-reality.html">
-            <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-app text-info text-sm opacity-10"></i>
-            </div>
-            <span class="nav-link-text ms-1">Virtual Reality</span>
           </a>
         </li>
       </ul>
@@ -98,12 +88,7 @@ if (!isset($_SESSION["login"])) {
           <h6 class="font-weight-bolder text-white mb-0">Dashboard</h6>
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
-          <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
-            </div>
-          </div>
+          <div class="ms-md-auto pe-md-3 d-flex align-items-center"></div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
               <a href="./../../backend/auth/logout.php" class="nav-link text-white font-weight-bold px-0">
@@ -117,7 +102,7 @@ if (!isset($_SESSION["login"])) {
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <div class="row">
+      <!-- <div class="row">
         <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
           <div class="card">
             <div class="card-body p-3">
@@ -202,7 +187,7 @@ if (!isset($_SESSION["login"])) {
             </div>
           </div>
         </div>
-      </div>
+      </div> -->
 
       <div class="row mt-5">
         <div class="col-6">
@@ -275,9 +260,6 @@ if (!isset($_SESSION["login"])) {
                       <tr>
                         <td>
                           <div class="d-flex px-2 py-1">
-                            <div>
-                              <img src="./../../template/argon-dashboard/assets/img/team-2.jpg" class="avatar avatar-sm me-3" alt="user1">
-                            </div>
                             <div class="d-flex flex-column justify-content-center">
                               <h6 class="mb-0 text-sm"><?= $row["nama"] ?></h6>
                               <p class="text-xs text-secondary mb-0"><?= $row["email"] ?></p>
@@ -285,13 +267,18 @@ if (!isset($_SESSION["login"])) {
                           </div>
                         </td>
                         <td class="align-middle">
-                          <button class="btn btn-danger">
+                          <button class="btn btn-danger btn-sm px-3">
                             <i class="fas fa-trash"></i>
                           </button>
                         </td>
                       </tr>
                     <?php endforeach; ?>
                   </tbody>
+                  <tr>
+                    <td colspan="2" align="center">
+                      <a href="./listPelanggan.php">Lihat Semua</a>
+                    </td>
+                  </tr>
                 </table>
               </div>
             </div>
@@ -309,25 +296,8 @@ if (!isset($_SESSION["login"])) {
                   document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                for a better web.
+                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Harun</a>
               </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

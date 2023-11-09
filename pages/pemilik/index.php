@@ -31,13 +31,12 @@ if (!isset($_SESSION["login"])) {
 </head>
 
 <body class="g-sidenav-show   bg-gray-100">
-  <div class="min-height-300 bg-primary position-absolute w-100"></div>
+  <div class="min-height-300 bg-gradient-warning position-absolute w-100"></div>
   <aside class="sidenav bg-white navbar navbar-vertical navbar-expand-xs border-0 border-radius-xl my-3 fixed-start ms-4 " id="sidenav-main">
     <div class="sidenav-header">
       <i class="fas fa-times p-3 cursor-pointer text-secondary opacity-5 position-absolute end-0 top-0 d-none d-xl-none" aria-hidden="true" id="iconSidenav"></i>
-      <a class="navbar-brand m-0" href=" https://demos.creative-tim.com/argon-dashboard/pages/dashboard.html " target="_blank">
-        <img src="../assets/img/logo-ct-dark.png" class="navbar-brand-img h-100" alt="main_logo">
-        <span class="ms-1 font-weight-bold">Argon Dashboard 2</span>
+      <a class="navbar-brand m-0" href="" target="_blank">
+        <span class="ms-1 font-weight-bold">Sinergi Honey</span>
       </a>
     </div>
     <hr class="horizontal dark mt-0">
@@ -46,7 +45,7 @@ if (!isset($_SESSION["login"])) {
         <li class="nav-item">
           <a class="nav-link active" href="./transaksi.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-              <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
+              <i class="ni ni-credit-card text-warning text-sm opacity-10"></i>
             </div>
             <span class="nav-link-text ms-1">Transaksi</span>
           </a>
@@ -67,10 +66,19 @@ if (!isset($_SESSION["login"])) {
         </nav>
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
           <div class="ms-md-auto pe-md-3 d-flex align-items-center">
-            <div class="input-group">
-              <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
-              <input type="text" class="form-control" placeholder="Type here...">
-            </div>
+            <?php if (isset($_GET["search"])) : ?>
+              <div class="me-2">
+                <a href="./index.php" class="btn btn-white mb-0">
+                  Reset
+                </a>
+              </div>
+            <?php endif; ?>
+            <form action="">
+              <div class="input-group">
+                <span class="input-group-text text-body"><i class="fas fa-search" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" placeholder="Search..." name="search">
+              </div>
+            </form>
           </div>
           <ul class="navbar-nav  justify-content-end">
             <li class="nav-item d-flex align-items-center">
@@ -90,7 +98,7 @@ if (!isset($_SESSION["login"])) {
           <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between pb-0 pt-3 bg-transparent">
               <h6 class="text-capitalize">Transaksi</h6>
-              <a href="./../../backend/exportTransaksiApprove.php" class="btn btn-success btn-sm">
+              <a href="./../../backend/exportTransaksiApprove.php" class="btn btn-warning btn-sm">
                 Cetak Data Transaksi
               </a>
             </div>
@@ -140,11 +148,11 @@ if (!isset($_SESSION["login"])) {
                         </span>
                       </div>
                       <div class="m-3 position-absolute top-0 end-0">
-                        <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-info" target="_blank">
+                        <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning btn-sm px-3" target="_blank">
                           <i class="fas fa-download"></i>
                         </a>
                         <?php if ($transaction["status"] == "approve") : ?>
-                          <a href="./../../backend/exportTransaksi.php?id=<?= $transaction['id'] ?>" class="btn btn-secondary" target="_blank">
+                          <a href="./../../backend/exportTransaksi.php?id=<?= $transaction['id'] ?>" class="btn btn-secondary btn-sm px-3" target="_blank">
                             <i class="fas fa-print"></i>
                           </a>
                         <?php endif; ?>
@@ -166,25 +174,8 @@ if (!isset($_SESSION["login"])) {
                   document.write(new Date().getFullYear())
                 </script>,
                 made with <i class="fa fa-heart"></i> by
-                <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative Tim</a>
-                for a better web.
+                <a href="" class="font-weight-bold" target="_blank">Harun</a>
               </div>
-            </div>
-            <div class="col-lg-6">
-              <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com" class="nav-link text-muted" target="_blank">Creative Tim</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted" target="_blank">About Us</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/blog" class="nav-link text-muted" target="_blank">Blog</a>
-                </li>
-                <li class="nav-item">
-                  <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted" target="_blank">License</a>
-                </li>
-              </ul>
             </div>
           </div>
         </div>

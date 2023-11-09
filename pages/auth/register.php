@@ -27,7 +27,7 @@ require "./../../backend/auth/register.php";
 
 <body class="">
   <main class="main-content mt-0 mb-5">
-    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signup-cover.jpg'); background-position: top;">
+    <div class="page-header align-items-start min-vh-50 pt-5 pb-11 m-3 border-radius-lg" style="background-image: url('./../../assets/images/loginBackground.jpg'); background-position: center;">
       <span class="mask bg-gradient-dark opacity-6"></span>
       <div class="container">
         <div class="row justify-content-center">
@@ -53,16 +53,10 @@ require "./../../backend/auth/register.php";
                 <div class="mb-3">
                   <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password">
                 </div>
-                <div class="form-check form-check-info text-start">
-                  <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" checked>
-                  <label class="form-check-label" for="flexCheckDefault">
-                    I agree the <a href="javascript:;" class="text-dark font-weight-bolder">Terms and Conditions</a>
-                  </label>
-                </div>
                 <div class="text-center">
-                  <button type="submit" name="register" class="btn bg-gradient-dark w-100 my-4 mb-2">Sign up</button>
+                  <button type="submit" name="register" class="btn btn-warning w-100 my-4 mb-2">Sign up</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Already have an account? <a href="./login.php" class="text-dark font-weight-bolder">Sign in</a></p>
+                <p class="text-sm mt-3 mb-0">Already have an account? <a href="./login.php" class="text-warning font-weight-bolder">Sign in</a></p>
               </form>
             </div>
           </div>
