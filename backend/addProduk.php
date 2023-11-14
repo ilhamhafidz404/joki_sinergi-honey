@@ -3,6 +3,7 @@
 if (isset($_POST["submitProduct"])) {
   $nama = $_POST["nama"];
   $harga = $_POST["harga"];
+  $jenis = $_POST["jenis"];
 
   // ambil data file
   $namaFile = $_FILES['foto']['name'];
@@ -14,7 +15,7 @@ if (isset($_POST["submitProduct"])) {
   // pindahkan file
   $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
 
-  mysqli_query($connect, "INSERT INTO products(`nama`, `harga`, `foto`) VALUES ('$nama', $harga, '$namaFile')");
+  mysqli_query($connect, "INSERT INTO products(`nama`, `harga`, `foto`, `jenis`) VALUES ('$nama', $harga, '$namaFile', '$jenis')");
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

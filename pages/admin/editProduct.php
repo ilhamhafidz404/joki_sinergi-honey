@@ -3,6 +3,7 @@ session_start();
 require "./../../backend/connection.php";
 require "./../../backend/getProdukById.php";
 require "./../../backend/editProduk.php";
+require "./../../backend/getTypes.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -129,6 +130,19 @@ if (!isset($_SESSION["login"])) {
                       <div class="form-group">
                         <label for="example-text-input" class="form-control-label">Harga Produk</label>
                         <input class="form-control" type="number" name="harga" value="<?= $row['harga'] ?>">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="example-text-input" class="form-control-label">Jenis Madu</label>
+                        <select class="form-select" name="jenis">
+                          <?php foreach ($types as $type) : ?>
+                            <?php if ($type["nama"] == $row["jenis"]) : ?>
+                              <option selected hidden value="<?= $type['nama'] ?>"><?= $type['nama'] ?></option>
+                            <?php endif; ?>
+                            <option value="<?= $type['nama'] ?>"><?= $type['nama'] ?></option>
+                          <?php endforeach; ?>
+                        </select>
                       </div>
                     </div>
                     <div class="col-md-6">
