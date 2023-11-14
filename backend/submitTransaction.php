@@ -24,6 +24,8 @@ if (isset($_POST["submitTransaction"])) {
   $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
 
 
+  $date = date('Y-m-d H:i:s');
+
   mysqli_query(
     $connect,
     "INSERT INTO transactions (
@@ -39,7 +41,8 @@ if (isset($_POST["submitTransaction"])) {
        `expedition`,
        `payment_method`,
        `payment_proof`,
-       `status`
+       `status`,
+       `tanggal`
     ) VALUES (
       $account_id,
       '$account_name',
@@ -53,7 +56,8 @@ if (isset($_POST["submitTransaction"])) {
       '$expedition',
       '$payment_method',
       '$namaFile',
-      'pending'
+      'pending',
+      '$date'
     )
     "
   );

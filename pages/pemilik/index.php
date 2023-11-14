@@ -96,9 +96,14 @@ if (!isset($_SESSION["login"])) {
           <div class="card">
             <div class="card-header d-flex align-items-center justify-content-between pb-0 pt-3 bg-transparent">
               <h6 class="text-capitalize">Transaksi</h6>
-              <a href="./../../backend/exportTransaksiApprove.php" class="btn btn-warning btn-sm">
-                Cetak Data Transaksi
-              </a>
+              <div>
+                <a href="./../../backend/cetakLaporanTransaksi.php" class="btn btn-warning btn-sm">
+                  Cetak Laporan Transaksi
+                </a>
+                <a href="./../../backend/exportTransaksiApprove.php" class="btn btn-secondary btn-sm">
+                  Cetak Data Transaksi
+                </a>
+              </div>
             </div>
             <div class="card-body pt-4 p-4">
               <div class="row">
