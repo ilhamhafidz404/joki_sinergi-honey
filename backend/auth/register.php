@@ -4,7 +4,9 @@ if (isset($_POST["register"])) {
   $nama = $_POST["nama"];
   $email = $_POST["email"];
   $password = $_POST["password"];
-  mysqli_query($connect, "INSERT INTO accounts (`nama`, `email`, `password`) VALUES ('$nama', '$email', '$password')");
+  $hp = $_POST["hp"];
+  $lahir = $_POST["lahir"];
+  mysqli_query($connect, "INSERT INTO accounts (`nama`, `email`, `password`, `hp`, `lahir`) VALUES ('$nama', '$email', '$password', '$hp', '$lahir')");
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

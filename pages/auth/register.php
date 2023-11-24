@@ -11,7 +11,7 @@ require "./../../backend/auth/register.php";
   <link rel="apple-touch-icon" sizes="76x76" href="./../../template/argon-dashboard/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="./../../template/argon-dashboard/assets/img/favicon.png">
   <title>
-    Argon Dashboard 2 by Creative Tim
+    REGISTRASI
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -45,8 +45,20 @@ require "./../../backend/auth/register.php";
             <div class="card-body">
               <form method="POST">
                 <div class="mb-3">
-                  <input type="text" class="form-control" placeholder="Name" aria-label="Name" name="nama">
+                  <label for="nama">Nama</label>
+                  <input type="text" id="nama" class="form-control" placeholder="Nama" name="nama">
                 </div>
+                <div class="mb-3">
+                  <label for="noHP">No HP</label>
+                  <input type="text" id="noHP" class="form-control" placeholder="No HP" name="hp">
+                </div>
+                <div class="mb-3">
+                  <label for="lahir">Tanggal Tahun Lahir</label>
+                  <input type="date" id="lahir" class="form-control" name="lahir">
+                </div>
+
+                <div style="border: 1px solid #eaeaea" class="my-4"></div>
+
                 <div class="mb-3">
                   <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email">
                 </div>
