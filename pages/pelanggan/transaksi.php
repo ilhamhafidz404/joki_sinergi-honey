@@ -111,17 +111,28 @@ if (!isset($_SESSION["login"])) {
             <section class="p-4">
               <form method="POST" enctype="multipart/form-data">
                 <div class="row">
-                  <div class="col-12 mb-3">
+                  <div class="col-6 mb-3">
                     <label for="product">Produk</label>
                     <select class="form-select" name="product" id="product">
-                      <option selected hidden>Pilih Produk</option>
+                      <?php if (isset($_GET["nama"]) && isset($_GET["harga"]) && isset($_GET["id"])) : ?>
+                        <option value="<?= $_GET["id"] ?>" harga="<?= $_GET["harga"] ?>" onclick="changeProduct(event)">
+                          <?= $_GET["nama"] ?>
+                          (Rp <?= $_GET["harga"] ?>)
+                        </option>
+                      <?php else : ?>
+                        <option selected hidden>Pilih Produk</option>
+                      <?php endif; ?>
                       <?php foreach ($cartList as $product) : ?>
-                        <option value="<?= $product["id"] ?>">
+                        <option value="<?= $product["product_id"] ?>" harga="<?= $product["product_price"] ?>" onclick="changeProduct(event)">
                           <?= $product["product_name"] ?>
                           ( Rp <?= $product["product_price"] ?>)
                         </option>
                       <?php endforeach; ?>
                     </select>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <label for="jumlah">Jumlah Beli</label>
+                    <input type="number" class="form-control" id="jumlah" name="jumlah">
                   </div>
                   <div class="col-3 mb-3">
                     <label for="village">Desa</label>
@@ -159,14 +170,42 @@ if (!isset($_SESSION["login"])) {
                       <option value="DANA">DANA : 085863836003 (MOH SAHERI)</option>
                     </select>
                   </div>
-                  <div class="col-5 mb-3">
-                    <label for="payment_proof" class="form-label">Bukti Pembayaran</label>
-                    <input class="form-control" type="file" name="payment_proof" id="payment_proof">
-                  </div>
                   <div class="d-flex justify-content-end">
-                    <button name="submitTransaction" class="btn btn-warning">
-                      Submit
-                    </button>
+                    <?php if (isset($_GET["harga"])) : ?>
+                      <button type="button" onclick="hitungTotalTransaksi(<?= $_GET['harga'] ?>)" data-bs-toggle="modal" data-bs-target="#modalTransaksi" class="btn btn-warning">
+                        Submit
+                      </button>
+                    <?php else : ?>
+                      <button type="button" onclick="hitungTotalTransaksi()" data-bs-toggle="modal" data-bs-target="#modalTransaksi" class="btn btn-warning">
+                        Submit
+                      </button>
+                    <?php endif; ?>
+                  </div>
+                </div>
+
+
+                <div class="modal fade" id="modalTransaksi">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Konfirmasi Pembayaran</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                      </div>
+                      <div class="modal-body">
+                        <div class="col-12 mb-3">
+                          <label for="payment_proof" class="form-label">Total Yang Harus Dibayar</label>
+                          <h4 id="totalBayar"></h4>
+                        </div>
+                        <div class="col-12 mb-3">
+                          <label for="payment_proof" class="form-label">Bukti Pembayaran</label>
+                          <input class="form-control" type="file" name="payment_proof" id="payment_proof">
+                        </div>
+                        <div class="modal-footer">
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                          <button type="submit" class="btn btn-warning" name="submitTransaction"> Submit</button>
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </form>
@@ -191,6 +230,39 @@ if (!isset($_SESSION["login"])) {
       </footer>
     </div>
   </main>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+  <script>
+    let totalBayar = 0;
+
+    const changeProduct = (e) => {
+      totalBayar = 0;
+
+      if (e) {
+        totalBayar = parseInt(e.target.getAttribute("harga"));
+      }
+    }
+
+    const hitungTotalTransaksi = (harga) => {
+
+      const jumlahBeli = document.getElementById("jumlah").value;
+
+      if (harga) {
+        totalBayar = parseInt(harga) * parseInt(jumlahBeli);
+        document.getElementById("totalBayar").innerHTML = new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR'
+        }).format(totalBayar);
+      } else {
+        document.getElementById("totalBayar").innerHTML = new Intl.NumberFormat('id-ID', {
+          style: 'currency',
+          currency: 'IDR'
+        }).format(totalBayar * parseInt(jumlahBeli));
+      }
+    }
+  </script>
 </body>
 
 </html>

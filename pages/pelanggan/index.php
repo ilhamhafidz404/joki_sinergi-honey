@@ -135,11 +135,16 @@ if (!isset($_SESSION["login"])) {
                           <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
                         </p>
                         <form method="POST">
+                          <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
                           <input type="text" value="<?= $product['nama'] ?>" name="productName" hidden>
                           <input type="text" value="<?= $product['harga'] ?>" name="productPrice" hidden>
                           <input type="text" value="<?= $product['foto'] ?>" name="productImage" hidden>
-                          <button class="btn btn-warning w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
-                            <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                          <a href="./transaksi.php?nama=<?= $product['nama'] ?>&harga=<?= $product['harga'] ?>&id=<?= $product['id'] ?>" class="btn btn-warning w-100">
+                            <i class="fas fa-money-bill-wave d-inline-block me-2" aria-hidden="true"></i>
+                            Beli Produk
+                          </a>
+                          <button class="btn btn-secondary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
+                            <i class="ni ni-cart text-lg opacity-10 d-inline-block me-2" aria-hidden="true"></i>
                             Tambah ke Keranjang
                           </button>
                         </form>

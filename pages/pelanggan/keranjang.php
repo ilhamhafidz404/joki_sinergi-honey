@@ -135,7 +135,7 @@ if (!isset($_SESSION["login"])) {
                         </p>
                         <form method="POST">
                           <input type="text" value="<?= $product['id'] ?>" name="cartDeleteId" hidden>
-                          <a href="./transaksi.php" class="btn btn-warning w-100">
+                          <a href="./transaksi.php?nama=<?= $product['product_name'] ?>&harga=<?= $product['product_price'] ?>&id=<?= $product['product_id'] ?>" class="btn btn-warning w-100">
                             <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
                             Beli Produk
                           </a>
