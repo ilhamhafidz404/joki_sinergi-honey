@@ -4,6 +4,8 @@ require "./../../backend/connection.php";
 require "./../../backend/listDataTransaksi.php";
 require "./../../backend/approveTransaksi.php";
 require "./../../backend/rejectTransaksi.php";
+require "./../../backend/listDataMadu.php";
+require "./../../backend/addTransaksiForAdmin.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -120,12 +122,12 @@ if (!isset($_SESSION["login"])) {
         <div class="card">
           <div class="card-header pb-0 px-3 d-flex align-items-center justify-content-between">
             <h6 class="mb-0"> Data Transaksi</h6>
-            <!-- <div>
-              <button class="btn btn-neutral">All</button>
-              <button class="btn btn-warning">Pending</button>
+            <div>
+              <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addTransaksiAdmin">Tambah Transaksi</button>
+              <!-- <button class="btn btn-warning">Pending</button>
               <button class="btn btn-danger">Reject</button>
-              <button class="btn btn-success">Approve</button>
-            </div> -->
+              <button class="btn btn-success">Approve</button> -->
+            </div>
           </div>
           <div class="card-body pt-4 p-3">
             <div class="row">
@@ -233,8 +235,75 @@ if (!isset($_SESSION["login"])) {
       </footer>
     </div>
   </main>
+
+
+
+  <!-- Modal -->
+  <div class="modal fade" id="addTransaksiAdmin">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">Tambah Transaksi</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            <input type="text" name="id" id="id" hidden>
+            <div class="form-group">
+              <label for="nama">Nama</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="ni ni-circle-08" aria-hidden="true"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Nama" name="nama" id="nama">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="product">Produk</label>
+              <select class="form-select" name="product" id="product">
+                <option selected hidden>Pilih Produk</option>
+                <?php foreach ($products as $product) : ?>
+                  <option value="<?= $product["id"] ?>">
+                    <?= $product["nama"] ?>
+                    ( Rp <?= $product["harga"] ?>)
+                  </option>
+                <?php endforeach; ?>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="total">Total Beli</label>
+              <div class="input-group">
+                <span class="input-group-text">
+                  <i class="fas fa-cart-shopping"></i>
+                </span>
+                <input type="text" class="form-control" placeholder="Total" name="total" id="total">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="metode">Metode Pembayaran</label>
+              <select class="form-select" name="metode" id="metode">
+                <option value="tunai" selected>Cash / Tunai</option>
+                <option value="DANA">DANA</option>
+                <option value="BRI">BRI</option>
+              </select>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-warning" name="submitAdminTransaksi"> Save</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+  <script src="https://kit.fontawesome.com/4b990370bb.js" crossorigin="anonymous"></script>
   <script>
     const confirmDelete = (id) => {
       swal({
