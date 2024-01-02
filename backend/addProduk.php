@@ -15,7 +15,12 @@ if (isset($_POST["submitProduct"])) {
   // pindahkan file
   $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
 
-  mysqli_query($connect, "INSERT INTO products(`nama`, `harga`, `foto`, `jenis`) VALUES ('$nama', $harga, '$namaFile', '$jenis')");
+  $jenisMadu = mysqli_query($connect, "SELECT * FROM types WHERE nama='$jenis'");
+
+  $resJenisMadu = mysqli_fetch_assoc($jenisMadu);
+  $idJenisMadu = $resJenisMadu["id"];
+
+  mysqli_query($connect, "INSERT INTO products(`nama`, `harga`, `foto`, `jenis`, `type_id`) VALUES ('$nama', $harga, '$namaFile', '$jenis', $idJenisMadu)");
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

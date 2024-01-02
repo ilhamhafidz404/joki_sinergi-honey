@@ -11,6 +11,7 @@ if (isset($_POST["submitTransaction"])) {
   foreach ($product as $item) {
     $product_name = $item["nama"];
     $product_price = $item["harga"];
+    $product_id = $item["id"];
   }
 
   // ambil data file
@@ -33,17 +34,18 @@ if (isset($_POST["submitTransaction"])) {
         `account_name`, 
         `product_name`, 
         `product_price`,
-         `village`, 
-         `subdistrict`,
-         `district`,
-         `city`,
-         `address`,
-         `expedition`,
-         `payment_method`,
-         `payment_proof`,
-         `status`,
-         `tanggal`,
-         `jumlah`
+        `village`, 
+        `subdistrict`,
+        `district`,
+        `city`,
+        `address`,
+        `expedition`,
+        `payment_method`,
+        `payment_proof`,
+        `status`,
+        `tanggal`,
+        `jumlah`,
+        `product_id`
       ) VALUES (
         $account_id,
         '$account_name',
@@ -59,7 +61,8 @@ if (isset($_POST["submitTransaction"])) {
         '$namaFile',
         'pending',
         '$date',
-        $jumlah
+        $jumlah,
+        $product_id
       )
       "
   );

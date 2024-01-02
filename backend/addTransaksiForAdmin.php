@@ -6,6 +6,7 @@ if (isset($_POST["submitAdminTransaksi"])) {
   foreach ($product as $item) {
     $product_name = $item["nama"];
     $product_price = $item["harga"];
+    $product_id = $item["id"];
   }
 
   $date = date('Y-m-d H:i:s');
@@ -16,10 +17,11 @@ if (isset($_POST["submitAdminTransaksi"])) {
         `account_name`, 
         `product_name`, 
         `product_price`,
-         `payment_method`,
-         `status`,
-         `tanggal`,
-         `jumlah`
+        `payment_method`,
+        `status`,
+        `tanggal`,
+        `jumlah`,
+        `product_id`
       ) VALUES (
         '$nama',
         '$product_name',
@@ -27,7 +29,8 @@ if (isset($_POST["submitAdminTransaksi"])) {
         '$metode',
         'approve',
         '$date',
-        $total
+        $total,
+        $product_id
       )
       "
   );
