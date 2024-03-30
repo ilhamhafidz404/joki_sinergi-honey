@@ -1,7 +1,7 @@
 <?php
 if (isset($_POST["submitTypes"])) {
   $nameType = $_POST["jenis"];
-  mysqli_query($connect, "INSERT INTO types (`nama`) VALUES('$nameType')");
+  mysqli_query($connect, "INSERT INTO jenis_produk (`nama`) VALUES('$nameType')");
 
 
   echo '

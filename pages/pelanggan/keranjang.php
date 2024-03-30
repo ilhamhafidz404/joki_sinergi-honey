@@ -124,30 +124,34 @@ if (!isset($_SESSION["login"])) {
             </div>
             <div class="card-body p-3">
               <div class="row">
-                <?php foreach ($cartList as $product) : ?>
-                  <div class="col-3">
-                    <div class="card">
-                      <img src="./../../assets/images/products/<?= $product["product_image"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
-                      <div class="card-body">
-                        <h5 class="card-title"><?= $product["product_name"] ?></h5>
-                        <p class="card-text">
-                          <?= "Rp " . number_format($product["product_price"], 0, ',', '.') ?>
-                        </p>
-                        <form method="POST">
-                          <input type="text" value="<?= $product['id'] ?>" name="cartDeleteId" hidden>
-                          <a href="./transaksi.php?nama=<?= $product['product_name'] ?>&harga=<?= $product['product_price'] ?>&id=<?= $product['product_id'] ?>" class="btn btn-warning w-100">
-                            <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
-                            Beli Produk
-                          </a>
-                          <button class="btn btn-danger w-100" name="deleteFromCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
-                            <i class="fas fa-trash" aria-hidden="true"></i>
-                            Hapus dari Keranjang
-                          </button>
-                        </form>
+                <?php if (mysqli_num_rows($cartList)) : ?>
+                  <?php foreach ($cartList as $product) : ?>
+                    <div class="col-3">
+                      <div class="card">
+                        <img src="./../../assets/images/products/<?= $product["image_product"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                          <h5 class="card-title"><?= $product["name_product"] ?></h5>
+                          <p class="card-text">
+                            <?= "Rp " . number_format($product["price_product"], 0, ',', '.') ?>
+                          </p>
+                          <form method="POST">
+                            <input type="text" value="<?= $product['id_keranjang'] ?>" name="cartDeleteId" hidden>
+                            <a href="./transaksi.php?nama=<?= $product['name_product'] ?>&harga=<?= $product['price_product'] ?>&id=<?= $product['id_product'] ?>" class="btn btn-warning w-100">
+                              <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
+                              Beli Produk
+                            </a>
+                            <button class="btn btn-danger w-100" name="deleteFromCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
+                              <i class="fas fa-trash" aria-hidden="true"></i>
+                              Hapus dari Keranjang
+                            </button>
+                          </form>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <?php endforeach; ?>
+                  <?php endforeach; ?>
+                <?php else : ?>
+                  <h6 class="text-center">Keranjang Kosong</h6>
+                <?php endif; ?>
               </div>
             </div>
           </div>

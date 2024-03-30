@@ -39,11 +39,6 @@ require "./backend/listDataMaduLimit.php";
   </nav>
 
   <div class="carousel carousel-dark slide" data-bs-ride="false">
-    <!-- <div class="carousel-indicators">
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
-      <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
-    </div> -->
     <div class="carousel-inner" style="height: 400px;">
       <div class="carousel-item active" style="height: 400px;">
         <img src="./assets/images/slider/1.jpg" class="d-block w-100" style="height: 400px; object-fit:cover">
@@ -53,36 +48,32 @@ require "./backend/listDataMaduLimit.php";
         </div>
       </div>
     </div>
-    <!-- <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
-      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Previous</span>
-    </button>
-    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
-      <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="visually-hidden">Next</span>
-    </button> -->
   </div>
 
   <section id="product" class="container mt-5">
     <h2 class="text-center mb-3">LIST PRODUK</h2>
     <div class="row">
-      <?php foreach ($products as $product) : ?>
-        <div class="col-3">
-          <div class="card">
-            <img src="./assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
-            <div class="card-body">
-              <h5 class="card-title"><?= $product["nama"] ?></h5>
-              <p class="card-text">
-                <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
-              </p>
-              <button class="btn btn-warning w-100" onclick="youMustLogin()">
-                <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                Beli
-              </button>
+      <?php if (mysqli_num_rows($products)) : ?>
+        <?php foreach ($products as $product) : ?>
+          <div class="col-3">
+            <div class="card">
+              <img src="./assets/images/products/<?= $product["foto_produk"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
+              <div class="card-body">
+                <h5 class="card-title"><?= $product["nama_produk"] ?></h5>
+                <p class="card-text">
+                  <?= "Rp " . number_format($product["harga_produk"], 0, ',', '.') ?>
+                </p>
+                <button class="btn btn-warning w-100" onclick="youMustLogin()">
+                  <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
+                  Beli
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      <?php endforeach; ?>
+        <?php endforeach; ?>
+      <?php else : ?>
+        <h6 class="text-center text-secondary">Produk tidak ditemukan</h6>
+      <?php endif; ?>
     </div>
 
   </section>
@@ -165,6 +156,8 @@ require "./backend/listDataMaduLimit.php";
       </footer>
     </div>
   </section>
+
+
 
 
 

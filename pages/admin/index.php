@@ -102,93 +102,6 @@ if (!isset($_SESSION["login"])) {
     </nav>
     <!-- End Navbar -->
     <div class="container-fluid py-4">
-      <!-- <div class="row">
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Pelanggan</p>
-                    <h5 class="font-weight-bolder">
-                      100
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
-                    <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Produk</p>
-                    <h5 class="font-weight-bolder">
-                      10
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
-                    <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6 mb-xl-0 mb-4">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Produk Terjual</p>
-                    <h5 class="font-weight-bolder">
-                      10
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-success shadow-success text-center rounded-circle">
-                    <i class="ni ni-paper-diploma text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-xl-3 col-sm-6">
-          <div class="card">
-            <div class="card-body p-3">
-              <div class="row">
-                <div class="col-8">
-                  <div class="numbers">
-                    <p class="text-sm mb-0 text-uppercase font-weight-bold">Produk di Keranjang</p>
-                    <h5 class="font-weight-bolder">
-                      80
-                    </h5>
-                  </div>
-                </div>
-                <div class="col-4 text-end">
-                  <div class="icon icon-shape bg-gradient-warning shadow-warning text-center rounded-circle">
-                    <i class="ni ni-cart text-lg opacity-10" aria-hidden="true"></i>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> -->
-
       <div class="row mt-5">
         <div class="col-6">
           <div class="card mb-4">
@@ -202,34 +115,38 @@ if (!isset($_SESSION["login"])) {
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Produk</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Harga</th>
-                      <!-- <th class="text-secondary opacity-7">Action</th> -->
                     </tr>
                   </thead>
                   <tbody>
-                    <?php foreach ($products as $product) : ?>
-                      <tr>
-                        <td>
-                          <div class="d-flex px-2 py-1">
-                            <div>
-                              <img src="./../../assets/images/products/<?= $product["foto"] ?>" style="object-fit: cover;" class="avatar avatar-sm me-3">
+                    <?php if (mysqli_num_rows($products)) : ?>
+                      <?php foreach ($products as $product) : ?>
+                        <tr>
+                          <td>
+                            <div class="d-flex px-2 py-1">
+                              <div>
+                                <img src="./../../assets/images/products/<?= $product["foto_produk"] ?>" style="object-fit: cover;" class="avatar avatar-sm me-3">
+                              </div>
+                              <div class="d-flex flex-column justify-content-center">
+                                <h6 class="mb-0 text-sm"><?= $product["nama_produk"] ?></h6>
+                              </div>
                             </div>
-                            <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm"><?= $product["nama"] ?></h6>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="align-middle">
-                          <p class="text-xs text-secondary mb-0">
-                            <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
-                          </p>
-                        </td>
-                        <!-- <td class="align-middle">
-                          <button class="btn btn-danger">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </td> -->
-                      </tr>
-                    <?php endforeach; ?>
+                          </td>
+                          <td class="align-middle">
+                            <p class="text-xs text-secondary mb-0">
+                              <?= "Rp " . number_format($product["harga_produk"], 0, ',', '.') ?>
+                            </p>
+                          </td>
+                        </tr>
+                      <?php endforeach; ?>
+                    <?php else : ?>
+                      <center>
+                        <tr>
+                          <th colspan="2" class="text-center">
+                            Belum ada Produk
+                          </th>
+                        </tr>
+                      </center>
+                    <?php endif; ?>
                   </tbody>
                   <tr>
                     <td colspan="2" align="center">
@@ -252,7 +169,7 @@ if (!isset($_SESSION["login"])) {
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pelanggan</th>
-                      <th class="text-secondary opacity-7">Action</th>
+                      <!-- <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th> -->
                     </tr>
                   </thead>
                   <tbody>
@@ -266,11 +183,11 @@ if (!isset($_SESSION["login"])) {
                             </div>
                           </div>
                         </td>
-                        <td class="align-middle">
+                        <!-- <td class="align-middle">
                           <button class="btn btn-danger btn-sm px-3">
                             <i class="fas fa-trash"></i>
                           </button>
-                        </td>
+                        </td> -->
                       </tr>
                     <?php endforeach; ?>
                   </tbody>

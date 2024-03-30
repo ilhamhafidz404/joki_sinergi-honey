@@ -53,7 +53,7 @@ require "./../../backend/auth/register.php";
                   <input type="text" id="noHP" class="form-control" placeholder="No HP" name="hp">
                 </div>
                 <div class="mb-3">
-                  <label for="lahir">Tanggal Tahun Lahir</label>
+                  <label for="lahir">Tahun Lahir</label>
                   <input type="date" id="lahir" class="form-control" name="lahir">
                 </div>
 

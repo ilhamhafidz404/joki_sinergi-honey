@@ -3,7 +3,6 @@
 if (isset($_POST["submitProduct"])) {
   $nama = $_POST["nama"];
   $harga = $_POST["harga"];
-  $jenis = $_POST["jenis"];
   $id = $_GET["id"];
 
   if ($_FILES["foto"]['name']) {
@@ -16,9 +15,19 @@ if (isset($_POST["submitProduct"])) {
     // pindahkan file
     $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
 
-    mysqli_query($connect, "UPDATE products SET nama='$nama', harga=$harga, foto='$namaFile', jenis='$jenis' WHERE id=$id");
+    mysqli_query(
+      $connect,
+      "UPDATE produk 
+      SET nama_produk='$nama', harga_produk=$harga, foto_produk='$namaFile'
+      WHERE id_product=$id"
+    );
   } else {
-    mysqli_query($connect, "UPDATE products SET nama='$nama', harga=$harga, jenis='$jenis' WHERE id=$id");
+    mysqli_query(
+      $connect,
+      "UPDATE produk 
+      SET nama_produk='$nama', harga_produk=$harga
+      WHERE id_product=$id"
+    );
   }
 
 

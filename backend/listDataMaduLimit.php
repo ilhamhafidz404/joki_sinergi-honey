@@ -1,3 +1,3 @@
 <?php
 
-$products = mysqli_query($connect, "SELECT * FROM products ORDER BY id DESC LIMIT 4");
+$products = mysqli_query($connect, "SELECT * FROM produk ORDER BY id_product DESC LIMIT 4");

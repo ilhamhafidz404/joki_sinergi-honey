@@ -26,11 +26,11 @@ $pdf->SetFont('Times', '', 10);
 
 $accountId = $_SESSION["id"];
 
-$data = mysqli_query($connect, "SELECT  * FROM transactions WHERE status='approve' AND account_id=$accountId");
+$data = mysqli_query($connect, "SELECT  * FROM `order` WHERE status='approve' AND id_account=$accountId");
 while ($d = mysqli_fetch_array($data)) {
-  $pdf->Cell(50, 6, $d['account_name'], 1, 0);
-  $pdf->Cell(40, 6, $d['product_name'], 1, 0);
-  $pdf->Cell(30, 6, $d['product_price'], 1, 0);
+  $pdf->Cell(50, 6, $d['name_account'], 1, 0);
+  $pdf->Cell(40, 6, $d['name_product'], 1, 0);
+  $pdf->Cell(30, 6, $d['price_product'], 1, 0);
   $pdf->Cell(30, 6, $d['expedition'], 1, 0);
   $pdf->Cell(30, 6, $d['payment_method'], 1, 1);
 }

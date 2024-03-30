@@ -131,89 +131,93 @@ if (!isset($_SESSION["login"])) {
           </div>
           <div class="card-body pt-4 p-3">
             <div class="row">
-              <?php foreach ($transactions as $transaction) : ?>
-                <div class="col-6 mb-3">
-                  <div class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                    <div class="d-flex flex-column">
-                      <h6 class="mb-3 text-sm"><?= $transaction["account_name"] ?></h6>
-                      <span class="mb-2 text-xs">
-                        Produk :
-                        <span class="text-dark font-weight-bold ms-sm-2">
-                          <?= $transaction["product_name"] ?>
-                          (Rp <?= $transaction["product_price"] ?>)
-                        </span>
-                      </span>
-                      <span class="mb-2 text-xs">
-                        Address:
-                        <span class="text-dark ms-sm-2 font-weight-bold">
-                          <?= $transaction["address"] ?>
-                        </span>
-                      </span>
-                      <span class="mb-2 text-xs">
-                        Payment Method
-                        <span class="text-dark ms-sm-2 font-weight-bold">
-                          <?= $transaction["payment_method"] ?>
-                        </span>
-                      </span>
-                      <span class="text-xs">
-                        Status
-                        <?php if ($transaction["status"] == "pending") : ?>
-                          <span class="badge bg-warning">
-                            Pending
+              <?php if (mysqli_num_rows($transactions)) : ?>
+                <?php foreach ($transactions as $transaction) : ?>
+                  <div class="col-6 mb-3">
+                    <div class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                      <div class="d-flex flex-column">
+                        <h6 class="mb-3 text-sm"><?= $transaction["name_account"] ?></h6>
+                        <span class="mb-2 text-xs">
+                          Produk :
+                          <span class="text-dark font-weight-bold ms-sm-2">
+                            <?= $transaction["name_product"] ?>
+                            (Rp <?= $transaction["price_product"] ?>)
                           </span>
-                        <?php endif; ?>
+                        </span>
+                        <span class="mb-2 text-xs">
+                          Address:
+                          <span class="text-dark ms-sm-2 font-weight-bold">
+                            <?= $transaction["address"] ?>
+                          </span>
+                        </span>
+                        <span class="mb-2 text-xs">
+                          Payment Method
+                          <span class="text-dark ms-sm-2 font-weight-bold">
+                            <?= $transaction["payment_method"] ?>
+                          </span>
+                        </span>
+                        <span class="text-xs">
+                          Status
+                          <?php if ($transaction["status"] == "pending") : ?>
+                            <span class="badge bg-warning">
+                              Pending
+                            </span>
+                          <?php endif; ?>
+                          <?php if ($transaction["status"] == "approve") : ?>
+                            <span class="badge bg-success">
+                              Approve
+                            </span>
+                          <?php endif; ?>
+                          <?php if ($transaction["status"] == "reject") : ?>
+                            <span class="badge bg-danger">
+                              Reject
+                            </span>
+                          <?php endif; ?>
+                        </span>
+                      </div>
+                      <div class="ms-auto text-end d-flex">
+                        <div class="me-3">
+                          <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning  btn-sm px-3" target="_blank">
+                            <i class="fas fa-download"></i>
+                          </a>
+                        </div>
                         <?php if ($transaction["status"] == "approve") : ?>
-                          <span class="badge bg-success">
-                            Approve
-                          </span>
+                          <form method="POST">
+                            <input type="text" value="<?= $transaction["id_order"] ?>" name="rejectedId" hidden>
+                            <button name="reject" class="btn btn-danger btn-sm px-3">
+                              Reject
+                            </button>
+                          </form>
                         <?php endif; ?>
                         <?php if ($transaction["status"] == "reject") : ?>
-                          <span class="badge bg-danger">
-                            Reject
-                          </span>
+                          <form method="POST" class="me-2">
+                            <input type="text" value="<?= $transaction["id_order"] ?>" name="approvedId" hidden>
+                            <button name="approve" class="btn btn-success btn-sm px-3">
+                              Approve
+                            </button>
+                          </form>
                         <?php endif; ?>
-                      </span>
-                    </div>
-                    <div class="ms-auto text-end d-flex">
-                      <div class="me-3">
-                        <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning  btn-sm px-3" target="_blank">
-                          <i class="fas fa-download"></i>
-                        </a>
+                        <?php if ($transaction["status"] == "pending") : ?>
+                          <form method="POST" class="me-2">
+                            <input type="text" value="<?= $transaction["id_order"] ?>" name="rejectedId" hidden>
+                            <button name="reject" class="btn btn-danger btn-sm px-3">
+                              Reject
+                            </button>
+                          </form>
+                          <form method="POST" class="me-2">
+                            <input type="text" value="<?= $transaction["id_order"] ?>" name="approvedId" hidden>
+                            <button name="approve" class="btn btn-success btn-sm px-3">
+                              Approve
+                            </button>
+                          </form>
+                        <?php endif; ?>
                       </div>
-                      <?php if ($transaction["status"] == "approve") : ?>
-                        <form method="POST">
-                          <input type="text" value="<?= $transaction["id"] ?>" name="rejectedId" hidden>
-                          <button name="reject" class="btn btn-danger btn-sm px-3">
-                            Reject
-                          </button>
-                        </form>
-                      <?php endif; ?>
-                      <?php if ($transaction["status"] == "reject") : ?>
-                        <form method="POST" class="me-2">
-                          <input type="text" value="<?= $transaction["id"] ?>" name="approvedId" hidden>
-                          <button name="approve" class="btn btn-success btn-sm px-3">
-                            Approve
-                          </button>
-                        </form>
-                      <?php endif; ?>
-                      <?php if ($transaction["status"] == "pending") : ?>
-                        <form method="POST" class="me-2">
-                          <input type="text" value="<?= $transaction["id"] ?>" name="rejectedId" hidden>
-                          <button name="reject" class="btn btn-danger btn-sm px-3">
-                            Reject
-                          </button>
-                        </form>
-                        <form method="POST" class="me-2">
-                          <input type="text" value="<?= $transaction["id"] ?>" name="approvedId" hidden>
-                          <button name="approve" class="btn btn-success btn-sm px-3">
-                            Approve
-                          </button>
-                        </form>
-                      <?php endif; ?>
                     </div>
                   </div>
-                </div>
-              <?php endforeach; ?>
+                <?php endforeach; ?>
+              <?php else : ?>
+                <h6 class="text-center">Belum ada data transaksi</h6>
+              <?php endif; ?>
             </div>
           </div>
         </div>
@@ -262,12 +266,16 @@ if (!isset($_SESSION["login"])) {
               <label for="product">Produk</label>
               <select class="form-select" name="product" id="product">
                 <option selected hidden>Pilih Produk</option>
-                <?php foreach ($products as $product) : ?>
-                  <option value="<?= $product["id"] ?>">
-                    <?= $product["nama"] ?>
-                    ( Rp <?= $product["harga"] ?>)
-                  </option>
-                <?php endforeach; ?>
+                <?php if (mysqli_num_rows($products)) : ?>
+                  <?php foreach ($products as $product) : ?>
+                    <option value="<?= $product["id_product"] ?>">
+                      <?= $product["nama_produk"] ?>
+                      ( Rp <?= $product["harga_produk"] ?>)
+                    </option>
+                  <?php endforeach; ?>
+                <?php else : ?>
+                  <option disabled>Tidak ada produk tersedia!</option>
+                <?php endif; ?>
               </select>
             </div>
             <div class="form-group">
@@ -282,7 +290,7 @@ if (!isset($_SESSION["login"])) {
             <div class="form-group">
               <label for="metode">Metode Pembayaran</label>
               <select class="form-select" name="metode" id="metode">
-                <option value="tunai" selected>Cash / Tunai</option>
+                <option value="Cash" selected>Cash / Tunai</option>
                 <option value="DANA">DANA</option>
                 <option value="BRI">BRI</option>
               </select>

@@ -43,7 +43,7 @@ if (!isset($_SESSION["login"])) {
     <div class="collapse navbar-collapse  w-auto " id="sidenav-collapse-main">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" href="../pages/dashboard.html">
+          <a class="nav-link active" href="index.php">
             <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
               <i class="ni ni-tv-2 text-warning text-sm opacity-10"></i>
             </div>
@@ -125,33 +125,39 @@ if (!isset($_SESSION["login"])) {
             </div>
             <div class="card-body p-3">
               <div class="row">
-                <?php foreach ($products as $product) : ?>
-                  <div class="col-3">
-                    <div class="card">
-                      <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
-                      <div class="card-body">
-                        <h5 class="card-title"><?= $product["nama"] ?></h5>
-                        <p class="card-text">
-                          <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
-                        </p>
-                        <form method="POST">
-                          <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
-                          <input type="text" value="<?= $product['nama'] ?>" name="productName" hidden>
-                          <input type="text" value="<?= $product['harga'] ?>" name="productPrice" hidden>
-                          <input type="text" value="<?= $product['foto'] ?>" name="productImage" hidden>
-                          <a href="./transaksi.php?nama=<?= $product['nama'] ?>&harga=<?= $product['harga'] ?>&id=<?= $product['id'] ?>" class="btn btn-warning w-100">
-                            <i class="fas fa-money-bill-wave d-inline-block me-2" aria-hidden="true"></i>
-                            Beli Produk
-                          </a>
-                          <button class="btn btn-secondary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
-                            <i class="ni ni-cart text-lg opacity-10 d-inline-block me-2" aria-hidden="true"></i>
-                            Tambah ke Keranjang
-                          </button>
-                        </form>
+                <?php if (mysqli_num_rows($products)) : ?>
+                  <?php foreach ($products as $product) : ?>
+                    <div class="col-3">
+                      <div class="card">
+                        <img src="./../../assets/images/products/<?= $product["foto_produk"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                          <h5 class="card-title"><?= $product["nama_produk"] ?></h5>
+                          <p class="card-text">
+                            <?= "Rp " . number_format($product["harga_produk"], 0, ',', '.') ?>
+                          </p>
+                          <form method="POST">
+                            <input type="text" value="<?= $product['id_product'] ?>" name="productId" hidden>
+                            <input type="text" value="<?= $product['nama_produk'] ?>" name="productName" hidden>
+                            <input type="text" value="<?= $product['harga_produk'] ?>" name="productPrice" hidden>
+                            <input type="text" value="<?= $product['foto_produk'] ?>" name="productImage" hidden>
+                            <a href="./transaksi.php?nama=<?= $product['nama_produk'] ?>&harga=<?= $product['harga_produk'] ?>&id=<?= $product['id_product'] ?>&img=<?= $product['foto_produk'] ?>" class="btn btn-warning w-100">
+                              <i class="fas fa-money-bill-wave d-inline-block me-2" aria-hidden="true"></i>
+                              Beli Produk
+                            </a>
+                            <button class="btn btn-secondary w-100" name="addToCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
+                              <i class="ni ni-cart text-lg opacity-10 d-inline-block me-2" aria-hidden="true"></i>
+                              Tambah ke Keranjang
+                            </button>
+                          </form>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <?php endforeach; ?>
+                  <?php endforeach; ?>
+                <?php else : ?>
+                  <center>
+                    <h5>Belum ada Produk</h5>
+                  </center>
+                <?php endif; ?>
               </div>
             </div>
           </div>

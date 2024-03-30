@@ -7,11 +7,11 @@ if (isset($_POST["submitTransaction"])) {
   $product_name = "";
   $product_price = 0;
 
-  $product = mysqli_query($connect, "SELECT * FROM products WHERE id=$product");
+  $product = mysqli_query($connect, "SELECT * FROM produk WHERE id_product=$product");
   foreach ($product as $item) {
-    $product_name = $item["nama"];
-    $product_price = $item["harga"];
-    $product_id = $item["id"];
+    $product_name = $item["nama_produk"];
+    $product_price = $item["harga_produk"];
+    $product_id = $item["id_product"];
   }
 
   // ambil data file
@@ -29,11 +29,11 @@ if (isset($_POST["submitTransaction"])) {
 
   mysqli_query(
     $connect,
-    "INSERT INTO transactions (
-        `account_id`, 
-        `account_name`, 
-        `product_name`, 
-        `product_price`,
+    "INSERT INTO `order` (
+        `id_account`, 
+        `name_account`, 
+        `name_product`, 
+        `price_product`,
         `village`, 
         `subdistrict`,
         `district`,
@@ -45,7 +45,7 @@ if (isset($_POST["submitTransaction"])) {
         `status`,
         `tanggal`,
         `jumlah`,
-        `product_id`
+        `id_product`
       ) VALUES (
         $account_id,
         '$account_name',
@@ -66,13 +66,50 @@ if (isset($_POST["submitTransaction"])) {
       )
       "
   );
-  // swal({
-  //   title: "Berhasil!",
-  //   text: "Berhasil Melakukan Transaksi",
-  //   icon: "success",
-  //   timer: 1500,
-  //   button: false,
-  // })
+
+  $order = mysqli_query($connect, "SELECT id_order FROM `order` ORDER BY id_order DESC LIMIT 1");
+
+  $orderId;
+  $uangBayar = $product_price * $jumlah;
+  foreach ($order as $id) {
+    $orderId = $id["id_order"];
+  }
+
+  mysqli_query(
+    $connect,
+    "INSERT INTO `bayar` (
+        `id_order`, 
+        `bukti_bayar`, 
+        `uang_bayar` 
+      ) VALUES (
+        $orderId,
+        '$namaFile',
+        $uangBayar
+      )
+      "
+  );
+
+  $laporans = mysqli_query($connect, "SELECT total_jual FROM laporan WHERE id_produk=$product_id");
+
+  $totalSekarang = 0;
+  foreach ($laporans as $laporan) {
+    $totalSekarang += $laporan["total_jual"];
+  }
+
+  $totalBaru = $totalSekarang + $jumlah;
+
+  mysqli_query(
+    $connect,
+    "UPDATE laporan SET total_jual=$totalBaru WHERE id_produk=$product_id"
+  );
+
+  // // swal({
+  // //   title: "Berhasil!",
+  // //   text: "Berhasil Melakukan Transaksi",
+  // //   icon: "success",
+  // //   timer: 1500,
+  // //   button: false,
+  // // })
 
   echo '
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

@@ -3,7 +3,6 @@
 if (isset($_POST["submitProduct"])) {
   $nama = $_POST["nama"];
   $harga = $_POST["harga"];
-  $jenis = $_POST["jenis"];
 
   // ambil data file
   $namaFile = $_FILES['foto']['name'];
@@ -15,12 +14,25 @@ if (isset($_POST["submitProduct"])) {
   // pindahkan file
   $terupload = move_uploaded_file($namaSementara, $dirUpload . $namaFile);
 
-  $jenisMadu = mysqli_query($connect, "SELECT * FROM types WHERE nama='$jenis'");
 
-  $resJenisMadu = mysqli_fetch_assoc($jenisMadu);
-  $idJenisMadu = $resJenisMadu["id"];
+  mysqli_query(
+    $connect,
+    "INSERT INTO produk(`nama_produk`, `harga_produk`, `foto_produk`) 
+    VALUES ('$nama', $harga, '$namaFile')"
+  );
 
-  mysqli_query($connect, "INSERT INTO products(`nama`, `harga`, `foto`, `jenis`, `type_id`) VALUES ('$nama', $harga, '$namaFile', '$jenis', $idJenisMadu)");
+  $products = mysqli_query($connect, "SELECT * FROM produk WHERE nama_produk='$nama' ORDER BY id_product DESC");
+
+  $idProduk = 0;
+  foreach ($products as $product) {
+    $idProduk = $product["id_product"];
+  }
+
+  mysqli_query(
+    $connect,
+    "INSERT INTO laporan(`id_produk`, `total_jual`) 
+    VALUES ($idProduk, 0)"
+  );
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

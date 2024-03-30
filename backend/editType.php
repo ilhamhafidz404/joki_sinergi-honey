@@ -4,7 +4,7 @@ if (isset($_POST["editTypeSubmit"])) {
   $id = $_POST["idJenisEdit"];
 
 
-  mysqli_query($connect, "UPDATE types SET nama='$nama' WHERE id=$id");
+  mysqli_query($connect, "UPDATE jenis_produk SET nama='$nama' WHERE id_type=$id");
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

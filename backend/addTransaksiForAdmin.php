@@ -2,27 +2,29 @@
 if (isset($_POST["submitAdminTransaksi"])) {
   extract($_POST);
 
-  $product = mysqli_query($connect, "SELECT * FROM products WHERE id=$product");
+  $product = mysqli_query($connect, "SELECT * FROM produk WHERE id_product=$product");
   foreach ($product as $item) {
-    $product_name = $item["nama"];
-    $product_price = $item["harga"];
-    $product_id = $item["id"];
+    $product_name = $item["nama_produk"];
+    $product_price = $item["harga_produk"];
+    $product_id = $item["id_product"];
   }
 
   $date = date('Y-m-d H:i:s');
 
   mysqli_query(
     $connect,
-    "INSERT INTO transactions (
-        `account_name`, 
-        `product_name`, 
-        `product_price`,
+    "INSERT INTO `order` (
+        `id_account`, 
+        `name_account`, 
+        `name_product`, 
+        `price_product`,
         `payment_method`,
         `status`,
         `tanggal`,
         `jumlah`,
-        `product_id`
+        `id_product`
       ) VALUES (
+        2,
         '$nama',
         '$product_name',
         $product_price,
@@ -35,7 +37,7 @@ if (isset($_POST["submitAdminTransaksi"])) {
       "
   );
 
-  $transactions = mysqli_query($connect, "SELECT * FROM transactions ORDER BY id DESC");
+  $transactions = mysqli_query($connect, "SELECT * FROM `order` ORDER BY id_order DESC");
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>

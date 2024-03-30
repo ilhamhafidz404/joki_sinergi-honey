@@ -4,6 +4,16 @@ require "./../../backend/connection.php";
 require "./../../backend/listCart.php";
 require "./../../backend/submitTransaction.php";
 
+if (isset($_GET["nama"]) && isset($_GET["harga"]) && isset($_GET["id"]) && isset($_GET["img"])) {
+  $accountId = $_SESSION["id"];
+  $productId = $_GET["id"];
+  $productName = $_GET["nama"];
+  $productPrice = $_GET["harga"];
+  $productImage = $_GET["img"];
+
+  mysqli_query($connect, "INSERT INTO keranjang (`id_account`, `name_product`, `price_product`, `image_product`, `id_product`) VALUES ($accountId, '$productName', $productPrice, '$productImage', '$productId')");
+}
+
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
 }
@@ -123,9 +133,9 @@ if (!isset($_SESSION["login"])) {
                         <option selected hidden>Pilih Produk</option>
                       <?php endif; ?>
                       <?php foreach ($cartList as $product) : ?>
-                        <option value="<?= $product["product_id"] ?>" harga="<?= $product["product_price"] ?>" onclick="changeProduct(event)">
-                          <?= $product["product_name"] ?>
-                          ( Rp <?= $product["product_price"] ?>)
+                        <option value="<?= $product["id_product"] ?>" harga="<?= $product["price_product"] ?>" onclick="changeProduct(event)">
+                          <?= $product["name_product"] ?>
+                          ( Rp <?= $product["price_product"] ?>)
                         </option>
                       <?php endforeach; ?>
                     </select>

@@ -107,68 +107,72 @@ if (!isset($_SESSION["login"])) {
             </div>
             <div class="card-body pt-4 p-4">
               <div class="row">
-                <?php foreach ($transactions as $transaction) : ?>
-                  <div class="col-6 mb-3">
-                    <div class="border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg position-relative">
-                      <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm"><?= $transaction["account_name"] ?></h6>
-                        <span class="mb-2 text-xs">
-                          Produk :
-                          <span class="text-dark font-weight-bold ms-sm-2">
-                            <?= $transaction["product_name"] ?>
-                            (Rp <?= $transaction["product_price"] ?>)
-                          </span>
-                        </span>
-                        <span class="mb-2 text-xs">
-                          Address:
-                          <span class="text-dark ms-sm-2 font-weight-bold">
-                            <?= $transaction["address"] ?>
-                          </span>
-                        </span>
-                        <span class="mb-2 text-xs">
-                          Payment Method
-                          <span class="text-dark ms-sm-2 font-weight-bold">
-                            <?= $transaction["payment_method"] ?>
-                          </span>
-                        </span>
-                        <span class="text-xs">
-                          Status
-                          <?php if ($transaction["status"] == "pending") : ?>
-                            <span class="badge bg-warning">
-                              Pending
+                <?php if (mysqli_num_rows($transactions)) : ?>
+                  <?php foreach ($transactions as $transaction) : ?>
+                    <div class="col-6 mb-3">
+                      <div class="border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg position-relative">
+                        <div class="d-flex flex-column">
+                          <h6 class="mb-3 text-sm"><?= $transaction["name_account"] ?></h6>
+                          <span class="mb-2 text-xs">
+                            Produk :
+                            <span class="text-dark font-weight-bold ms-sm-2">
+                              <?= $transaction["name_product"] ?>
+                              (Rp <?= $transaction["price_product"] ?>)
                             </span>
-                          <?php endif; ?>
-                          <?php if ($transaction["status"] == "approve") : ?>
-                            <span class="badge bg-success">
-                              Approve
+                          </span>
+                          <span class="mb-2 text-xs">
+                            Address:
+                            <span class="text-dark ms-sm-2 font-weight-bold">
+                              <?= $transaction["address"] ?>
                             </span>
-                          <?php endif; ?>
-                          <?php if ($transaction["status"] == "reject") : ?>
-                            <span class="badge bg-danger">
-                              Reject
+                          </span>
+                          <span class="mb-2 text-xs">
+                            Payment Method
+                            <span class="text-dark ms-sm-2 font-weight-bold">
+                              <?= $transaction["payment_method"] ?>
                             </span>
-                          <?php endif; ?>
-                        </span>
-                      </div>
-                      <div class="m-3 position-absolute top-0 end-0">
-                        <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning btn-sm px-3" target="_blank">
-                          <i class="fas fa-download"></i>
-                        </a>
-                        <?php if ($transaction["status"] == "approve") : ?>
-                          <a href="./../../backend/exportTransaksi.php?id=<?= $transaction['id'] ?>" class="btn btn-secondary btn-sm px-3" target="_blank">
-                            <i class="fas fa-print"></i>
+                          </span>
+                          <span class="text-xs">
+                            Status
+                            <?php if ($transaction["status"] == "pending") : ?>
+                              <span class="badge bg-warning">
+                                Pending
+                              </span>
+                            <?php endif; ?>
+                            <?php if ($transaction["status"] == "approve") : ?>
+                              <span class="badge bg-success">
+                                Approve
+                              </span>
+                            <?php endif; ?>
+                            <?php if ($transaction["status"] == "reject") : ?>
+                              <span class="badge bg-danger">
+                                Reject
+                              </span>
+                            <?php endif; ?>
+                          </span>
+                        </div>
+                        <div class="m-3 position-absolute top-0 end-0">
+                          <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning btn-sm px-3" target="_blank">
+                            <i class="fas fa-download"></i>
                           </a>
-                        <?php endif; ?>
+                          <?php if ($transaction["status"] == "approve") : ?>
+                            <a href="./../../backend/exportTransaksi.php?id=<?= $transaction['id_order'] ?>" class="btn btn-secondary btn-sm px-3" target="_blank">
+                              <i class="fas fa-print"></i>
+                            </a>
+                          <?php endif; ?>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                <?php endforeach; ?>
+                  <?php endforeach; ?>
+                <?php else : ?>
+                  <h6 class="text-center">Belum ada transaksi</h6>
+                <?php endif; ?>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <footer class="footer pt-3  ">
+      <footer class="footer pt-3 mt-4">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
             <div class="col-lg-6 mb-lg-0 mb-4">

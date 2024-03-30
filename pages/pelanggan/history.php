@@ -118,12 +118,12 @@ if (!isset($_SESSION["login"])) {
                   <div class="col-6 mb-3">
                     <div class="border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg position-relative">
                       <div class="d-flex flex-column">
-                        <h6 class="mb-3 text-sm"><?= $transaction["account_name"] ?></h6>
+                        <h6 class="mb-3 text-sm"><?= $transaction["name_account"] ?></h6>
                         <span class="mb-2 text-xs">
                           Produk :
                           <span class="text-dark font-weight-bold ms-sm-2">
-                            <?= $transaction["product_name"] ?>
-                            (Rp <?= $transaction["product_price"] ?>)
+                            <?= $transaction["name_product"] ?>
+                            (Rp <?= $transaction["price_product"] ?>)
                           </span>
                         </span>
                         <span class="mb-2 text-xs">
@@ -162,7 +162,7 @@ if (!isset($_SESSION["login"])) {
                           <i class="fas fa-download"></i>
                         </a>
                         <?php if ($transaction["status"] == "approve") : ?>
-                          <a href="./../../backend/exportTransaksi.php?id=<?= $transaction['id'] ?>" class="btn btn-secondary btn-sm px-3" target="_blank">
+                          <a href="./../../backend/exportTransaksi.php?id=<?= $transaction['id_order'] ?>" class="btn btn-secondary btn-sm px-3" target="_blank">
                             <i class="fas fa-print"></i>
                           </a>
                         <?php endif; ?>

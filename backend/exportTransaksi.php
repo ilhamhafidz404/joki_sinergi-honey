@@ -26,13 +26,13 @@ $pdf->SetFont('Times', '', 10);
 
 $id = $_GET['id'];
 
-$data = mysqli_query($connect, "SELECT  * FROM transactions WHERE id=$id");
+$data = mysqli_query($connect, "SELECT  * FROM `order` WHERE id_order=$id");
 while ($d = mysqli_fetch_array($data)) {
-  $pdf->Cell(30, 6, $d['account_name'], 1, 0);
-  $pdf->Cell(40, 6, $d['product_name'], 1, 0);
-  $pdf->Cell(30, 6, $d['product_price'], 1, 0);
+  $pdf->Cell(30, 6, $d['name_account'], 1, 0);
+  $pdf->Cell(40, 6, $d['name_product'], 1, 0);
+  $pdf->Cell(30, 6, $d['price_product'], 1, 0);
   $pdf->Cell(20, 6, $d['jumlah'], 1, 0);
-  $pdf->Cell(20, 6, $d['product_price'] * $d['jumlah'], 1, 0);
+  $pdf->Cell(20, 6, $d['price_product'] * $d['jumlah'], 1, 0);
   $pdf->Cell(20, 6, $d['expedition'], 1, 0);
   $pdf->Cell(20, 6, $d['payment_method'], 1, 1);
 }

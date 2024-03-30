@@ -2,10 +2,6 @@
 session_start();
 require "./../../backend/connection.php";
 require "./../../backend/listDataMadu.php";
-require "./../../backend/insertTypes.php";
-require "./../../backend/getTypes.php";
-require "./../../backend/deleteType.php";
-require "./../../backend/editType.php";
 
 if (!isset($_SESSION["login"])) {
   header("Location: ./../auth/login.php");
@@ -121,37 +117,45 @@ if (!isset($_SESSION["login"])) {
     <div class="container-fluid py-4">
       <div class="d-flex justify-content-between">
         <a href="./addProduct.php" class="btn btn-white text-warning">Tambah Produk</a>
-        <button type="button" class="btn btn-white text-warning" data-bs-toggle="modal" data-bs-target="#modalJenisMadu">
+        <!-- <button type="button" class="btn btn-white text-warning" data-bs-toggle="modal" data-bs-target="#modalJenisMadu">
           Manajemen Jenis Madu
-        </button>
+        </button> -->
       </div>
       <div class="row">
-        <?php foreach ($products as $product) : ?>
-          <div class="col-3 mb-4">
-            <div class="card">
-              <img src="./../../assets/images/products/<?= $product["foto"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
-              <div class="card-body">
-                <h5 class="card-title"><?= $product["nama"] ?></h5>
-                <p class="card-text">
-                  <?= "Rp " . number_format($product["harga"], 0, ',', '.') ?>
-                </p>
-                <form method="POST">
-                  <input type="text" value="<?= $product['id'] ?>" name="productId" hidden>
-                  <div class="d-flex">
-                    <button type="button" class="btn btn-danger w-100 me-1" onclick="confirmDelete(<?= $product['id'] ?>)">
-                      <i class="fas fa-trash me-2"></i>
-                      Hapus
-                    </button>
-                    <a href="./editProduct.php?id=<?= $product['id'] ?>" class="btn btn-warning w-100 ms-1">
-                      <i class="fas fa-pen me-2"></i>
-                      Edit
-                    </a>
-                  </div>
-                </form>
+        <?php if (mysqli_num_rows($products)) : ?>
+          <?php foreach ($products as $product) : ?>
+            <div class="col-3 mb-4">
+              <div class="card">
+                <img src="./../../assets/images/products/<?= $product["foto_produk"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
+                <div class="card-body">
+                  <h5 class="card-title"><?= $product["nama_produk"] ?></h5>
+                  <p class="card-text">
+                    <?= "Rp " . number_format($product["harga_produk"], 0, ',', '.') ?>
+                  </p>
+                  <form method="POST">
+                    <input type="text" value="<?= $product['id_product'] ?>" name="productId" hidden>
+                    <div class="d-flex">
+                      <button type="button" class="btn btn-danger w-100 me-1" onclick="confirmDelete(<?= $product['id_product'] ?>)">
+                        <i class="fas fa-trash me-2"></i>
+                        Hapus
+                      </button>
+                      <a href="./editProduct.php?id=<?= $product['id_product'] ?>" class="btn btn-warning w-100 ms-1">
+                        <i class="fas fa-pen me-2"></i>
+                        Edit
+                      </a>
+                    </div>
+                  </form>
+                </div>
               </div>
             </div>
+          <?php endforeach; ?>
+        <?php else : ?>
+          <div class="col-12 mb-4">
+            <div class="card">
+              <h5 class="text-center my-5">Belum ada Produk</h5>
+            </div>
           </div>
-        <?php endforeach; ?>
+        <?php endif; ?>
       </div>
       <footer class="footer pt-3  ">
         <div class="container-fluid">
@@ -168,98 +172,6 @@ if (!isset($_SESSION["login"])) {
           </div>
         </div>
       </footer>
-    </div>
-
-    <div class="modal modal-lg fade" id="modalJenisMadu" tabindex="-1" aria-labelledby="modalJenisMaduLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5" id="modalJenisMaduLabel">Manajemen Jenis Madu</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <nav>
-              <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                <button class="nav-link active" id="dataJenis-tab" data-bs-toggle="tab" data-bs-target="#dataJenis" type="button" role="tab" aria-controls="dataJenis" aria-selected="true">Data Jenis Madu</button>
-                <button class="nav-link" id="nav-profile-tab" data-bs-toggle="tab" data-bs-target="#nav-profile" type="button" role="tab" aria-controls="nav-profile" aria-selected="false">Tambah Jenis Madu</button>
-              </div>
-            </nav>
-            <div class="tab-content" id="nav-tabContent">
-              <div class="tab-pane fade show active" id="dataJenis">
-                <table class="table table-striped">
-                  <thead>
-                    <tr>
-                      <th scope="col">#</th>
-                      <th scope="col">Jenis</th>
-                      <th scope="col">Aksi</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <?php foreach ($types as $index => $type) : ?>
-                      <tr>
-                        <th scope="row"><?= $index + 1 ?></th>
-                        <td>
-                          <?= $type["nama"] ?>
-                        </td>
-                        <td>
-                          <button type="button" class="btn btn-info btn-sm px-3" onclick="showModalEdit(<?= $type['id'] ?>, '<?= $type['nama'] ?>')" data-bs-toggle="modal" data-bs-target="#editModal">
-                            <i class="fas fa-pen"></i>
-                          </button>
-                          <button class="btn btn-danger btn-sm px-3" onclick=" confirmDeleteType(<?= $type['id'] ?>)">
-                            <i class="fas fa-trash"></i>
-                          </button>
-                        </td>
-                      </tr>
-                    <?php endforeach; ?>
-                  </tbody>
-                </table>
-              </div>
-              <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab" tabindex="0">
-                <br>
-                <form method="POST">
-                  <div class="row">
-                    <div class="mb-3 col-10">
-                      <label for="jenis" class="form-label">Nama Jenis Madu</label>
-                      <input type="text" class="form-control" id="jenis" name="jenis">
-                    </div>
-                    <div class="col-2">
-                      <label for="jenis" class="form-label d-block text-white">submit</label>
-                      <button type="submit" class="btn btn-primary" name="submitTypes">Submit</button>
-                    </div>
-                  </div>
-                </form>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Modal -->
-    <div class="modal modal-lg fade" id="editModal" tabindex="-1" aria-labelledby="editModal" aria-hidden="true">
-      <div class="modal-dialog">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h1 class="modal-title fs-5">Edit Jenis Madu</h1>
-            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <div class="modal-body">
-            <form method="POST">
-              <div class="row">
-                <div class="mb-3 col-10">
-                  <label for="jenis" class="form-label">Nama Jenis Madu</label>
-                  <input type="text" class="form-control" id="jenisEdit" name="jenisEdit">
-                  <input type="number" class="form-control" id="idJenisEdit" name="idJenisEdit" hidden>
-                </div>
-                <div class="col-2">
-                  <label for="jenis" class="form-label d-block text-white">submit</label>
-                  <button type="submit" class="btn btn-primary" name="editTypeSubmit">Submit</button>
-                </div>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
 
 
@@ -287,36 +199,6 @@ if (!isset($_SESSION["login"])) {
             }, 1500);
           }
         });
-    }
-
-    const confirmDeleteType = (id) => {
-      swal({
-          title: "Apakah Kamu Yakin ?",
-          text: "Jenis ini akan dihapus dari list jenis product?",
-          icon: "warning",
-          dangerMode: true,
-          buttons: {
-            confirm: "Yes",
-            cancel: true,
-          },
-        })
-        .then(willDelete => {
-          if (willDelete) {
-            swal("Berhasil!", "Jenis Madu berhasil dihapus!", "success");
-            setTimeout(() => {
-              window.location.href = "./../../backend/deleteType.php?deleteTypeId=" + id;
-            }, 1500);
-          }
-        });
-    }
-
-
-    const showModalEdit = (id, nama) => {
-      const inputId = document.getElementById("idJenisEdit");
-      const inputName = document.getElementById("jenisEdit");
-
-      inputId.value = id;
-      inputName.value = nama;
     }
   </script>
 </body>

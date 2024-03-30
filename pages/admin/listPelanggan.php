@@ -144,12 +144,12 @@ if (!isset($_SESSION["login"])) {
                           </div>
                         </td>
                         <td class="align-middle">
-                          <button class="btn btn-warning btn-sm px-3" onclick="showModalEdit(<?= $row['id'] ?>, '<?= $row['nama'] ?>', '<?= $row['email'] ?>', '<?= $row['password'] ?>')" data-bs-toggle="modal" data-bs-target="#editAccount">
+                          <button class="btn btn-warning btn-sm px-3" onclick="showModalEdit(<?= $row['id_account'] ?>, '<?= $row['nama'] ?>', '<?= $row['email'] ?>', '<?= $row['password'] ?>')" data-bs-toggle="modal" data-bs-target="#editAccount">
                             <i class="fas fa-pen"></i>
                           </button>
-                          <button class="btn btn-danger btn-sm px-3">
+                          <!-- <button class="btn btn-danger btn-sm px-3">
                             <i class="fas fa-trash"></i>
-                          </button>
+                          </button> -->
                         </td>
                       </tr>
                     <?php endforeach; ?>
