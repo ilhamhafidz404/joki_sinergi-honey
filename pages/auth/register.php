@@ -60,6 +60,9 @@ require "./../../backend/auth/register.php";
                 <div style="border: 1px solid #eaeaea" class="my-4"></div>
 
                 <div class="mb-3">
+                  <input type="text" class="form-control" placeholder="Username" aria-label="Username" name="username">
+                </div>
+                <div class="mb-3">
                   <input type="email" class="form-control" placeholder="Email" aria-label="Email" name="email">
                 </div>
                 <div class="mb-3">

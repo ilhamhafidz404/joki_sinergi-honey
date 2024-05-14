@@ -42,7 +42,7 @@ if (isset($_SESSION["login"])) {
                 <div class="card-body">
                   <form role="form" action="./../../backend/auth/login.php" method="POST">
                     <div class="mb-3">
-                      <input type="email" class="form-control form-control-lg" placeholder="Email" aria-label="Email" name="email">
+                      <input type="text" class="form-control form-control-lg" placeholder="Username" aria-label="Username" name="username">
                     </div>
                     <div class="mb-3">
                       <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" name="password">

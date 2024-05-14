@@ -4,10 +4,10 @@ require "./../connection.php";
 session_start();
 
 if (isset($_POST["submit"])) {
-  $email = $_POST["email"];
+  $username = $_POST["username"];
   $password = $_POST["password"];
 
-  $result = mysqli_query($connect, "SELECT * FROM pelanggan WHERE email='$email' AND password='$password' ");
+  $result = mysqli_query($connect, "SELECT * FROM pelanggan WHERE username='$username' AND password='$password' ");
 
 
   if (mysqli_affected_rows($connect)) {

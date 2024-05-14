@@ -1,12 +1,13 @@
 <?php
 
 if (isset($_POST["register"])) {
+  $username = $_POST["username"];
   $nama = $_POST["nama"];
   $email = $_POST["email"];
   $password = $_POST["password"];
   $hp = $_POST["hp"];
   $lahir = $_POST["lahir"];
-  mysqli_query($connect, "INSERT INTO pelanggan (`nama`, `email`, `password`, `hp`, `lahir`, `user_type`) VALUES ('$nama', '$email', '$password', '$hp', '$lahir', 'pelanggan')");
+  mysqli_query($connect, "INSERT INTO pelanggan (`nama`, `username`, `email`, `password`, `hp`, `lahir`, `user_type`) VALUES ('$nama', '$username', '$email', '$password', '$hp', '$lahir', 'pelanggan')");
 
   echo '
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
