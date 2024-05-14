@@ -3,6 +3,10 @@
 if (isset($_POST["submitProduct"])) {
   $nama = $_POST["nama"];
   $harga = $_POST["harga"];
+  $deskripsi = $_POST["deskripsi"];
+  $khasiat = $_POST["khasiat"];
+  $ukuran = $_POST["ukuran"];
+  $stok = $_POST["stok"];
 
   // ambil data file
   $namaFile = $_FILES['foto']['name'];
@@ -17,8 +21,8 @@ if (isset($_POST["submitProduct"])) {
 
   mysqli_query(
     $connect,
-    "INSERT INTO produk(`nama_produk`, `harga_produk`, `foto_produk`) 
-    VALUES ('$nama', $harga, '$namaFile')"
+    "INSERT INTO produk(`nama_produk`, `deskripsi`, `khasiat`, `ukuran`, `harga_produk`, `stok`, `foto_produk`) 
+    VALUES ('$nama', '$deskripsi', '$khasiat', '$ukuran', $harga, $stok, '$namaFile')"
   );
 
   $products = mysqli_query($connect, "SELECT * FROM produk WHERE nama_produk='$nama' ORDER BY id_product DESC");

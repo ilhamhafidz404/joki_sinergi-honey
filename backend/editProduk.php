@@ -3,6 +3,10 @@
 if (isset($_POST["submitProduct"])) {
   $nama = $_POST["nama"];
   $harga = $_POST["harga"];
+  $deskripsi = $_POST["deskripsi"];
+  $khasiat = $_POST["khasiat"];
+  $ukuran = $_POST["ukuran"];
+  $stok = $_POST["stok"];
   $id = $_GET["id"];
 
   if ($_FILES["foto"]['name']) {
@@ -18,14 +22,14 @@ if (isset($_POST["submitProduct"])) {
     mysqli_query(
       $connect,
       "UPDATE produk 
-      SET nama_produk='$nama', harga_produk=$harga, foto_produk='$namaFile'
+      SET nama_produk='$nama', deskripsi='$deskripsi', khasiat='$khasiat', ukuran='$ukuran', stok=$stok, harga_produk=$harga, foto_produk='$namaFile'
       WHERE id_product=$id"
     );
   } else {
     mysqli_query(
       $connect,
       "UPDATE produk 
-      SET nama_produk='$nama', harga_produk=$harga
+      SET nama_produk='$nama', deskripsi='$deskripsi', khasiat='$khasiat', ukuran='$ukuran', stok=$stok, harga_produk=$harga, foto_produk='$namaFile'
       WHERE id_product=$id"
     );
   }

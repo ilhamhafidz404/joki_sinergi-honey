@@ -129,15 +129,47 @@ if (!isset($_SESSION["login"])) {
                       <input class="form-control" type="number" name="harga">
                     </div>
                   </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Deskripsi Produk</label>
+                      <textarea class="form-control" name="deskripsi" rows="5"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Khasiat</label>
+                      <textarea class="form-control" name="khasiat" rows="5"></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Ukuran</label>
+                      <input class="form-control" name="ukuran" type="text" />
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="example-text-input" class="form-control-label">Stok</label>
+                      <input class="form-control" name="stok" type="number" />
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
                   <div class="col-md-6">
                     <div class="form-group">
                       <label for="example-text-input" class="form-control-label">Foto Produk</label>
                       <input class="form-control" type="file" name="foto">
                     </div>
                   </div>
-                  <div class="col-12">
-                    <button class="btn btn-warning" name="submitProduct">Submit</button>
-                  </div>
+                </div>
+                <div class="col-12">
+                  <button class="btn btn-warning" name="submitProduct">Submit</button>
                 </div>
               </form>
             </div>
