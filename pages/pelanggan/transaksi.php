@@ -11,7 +11,7 @@ if (isset($_GET["nama"]) && isset($_GET["harga"]) && isset($_GET["id"]) && isset
   $productPrice = $_GET["harga"];
   $productImage = $_GET["img"];
 
-  mysqli_query($connect, "INSERT INTO keranjang (`id_account`, `name_product`, `price_product`, `image_product`, `id_product`) VALUES ($accountId, '$productName', $productPrice, '$productImage', '$productId')");
+  mysqli_query($connect, "INSERT INTO keranjang (`id_account`, `name_product`, `price_product`, `quantity`, `image_product`, `id_product`) VALUES ($accountId, '$productName', $productPrice, 1, '$productImage', '$productId')");
 }
 
 if (!isset($_SESSION["login"])) {

@@ -12,7 +12,14 @@ if (isset($_POST["submitTransaction"])) {
     $product_name = $item["nama_produk"];
     $product_price = $item["harga_produk"];
     $product_id = $item["id_product"];
+    $product_qty = $item["stok"] - $jumlah;
   }
+  $keranjang = mysqli_query($connect, "SELECT id_keranjang FROM keranjang WHERE id_account='$account_id'");
+  foreach ($keranjang as $k) {
+    $id_keranjang = $k["id_keranjang"];
+  }
+
+  mysqli_query($connect, "UPDATE produk SET stok=$product_qty WHERE id_product=$product_id");
 
   // ambil data file
   $namaFile = $_FILES['payment_proof']['name'];
@@ -45,7 +52,7 @@ if (isset($_POST["submitTransaction"])) {
         `status`,
         `tanggal`,
         `jumlah`,
-        `id_product`
+        `id_keranjang`
       ) VALUES (
         $account_id,
         '$account_name',
@@ -62,7 +69,7 @@ if (isset($_POST["submitTransaction"])) {
         'pending',
         '$date',
         $jumlah,
-        $product_id
+        $id_keranjang
       )
       "
   );
@@ -128,9 +135,9 @@ if (isset($_POST["submitTransaction"])) {
         })
         .then((willDelete) => {
           if (willDelete) {
-            window.location.href = `http://localhost/sinergiHoney/pages/pelanggan/index.php`;
+            window.location.href = `index.php`;
           } else {
-            window.location.href = `http://localhost/sinergiHoney/pages/pelanggan/history.php`;
+            window.location.href = `history.php`;
           }
         });
       });
