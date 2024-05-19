@@ -127,14 +127,18 @@ if (!isset($_SESSION["login"])) {
               <div class="row">
                 <?php if (mysqli_num_rows($products)) : ?>
                   <?php foreach ($products as $product) : ?>
-                    <div class="col-3">
+                    <div class="col-6">
                       <div class="card">
                         <img src="./../../assets/images/products/<?= $product["foto_produk"] ?>" class="card-img-top" style="height: 250px; object-fit: cover;">
                         <div class="card-body">
-                          <h5 class="card-title"><?= $product["nama_produk"] ?></h5>
-                          <p class="card-text">
+                          <h4 class="card-title"><?= $product["nama_produk"] ?></h4>
+                          <h5 class="card-title fw-bold">
                             <?= "Rp " . number_format($product["harga_produk"], 0, ',', '.') ?>
-                          </p>
+                          </h5>
+                          <p class="card-text">Stok tersedia: <span class="fw-bold"><?= $product["stok"] ?></span></p>
+                          <p class="fw-bold">Khasiat: </p>
+                          <p><?= $product["khasiat"] ?></p>
+                          <p class="fw-bold">Tersedia Ukuran: <span class="fw-normal"><?= $product["ukuran"] ?></span></p>
                           <form method="POST">
                             <input type="text" value="<?= $product['id_product'] ?>" name="productId" hidden>
                             <input type="text" value="<?= $product['nama_produk'] ?>" name="productName" hidden>
