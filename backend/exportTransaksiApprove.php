@@ -7,6 +7,18 @@ include 'connection.php';
 $pdf = new FPDF('P', 'mm', 'A4');
 $pdf->AddPage();
 
+// Mendapatkan lebar halaman
+$pageWidth = $pdf->GetPageWidth();
+
+// Mengatur lebar gambar agar sesuai dengan lebar halaman PDF
+$imageWidth = $pageWidth - 2 * 0;
+
+$pdf->Image('./../assets/images/kopsurat.jpeg', 0, 10, $imageWidth); // Ganti 'path/to/logo.png' dengan path gambar Anda, (x, y, width)
+
+// Membuat jarak antara gambar dan judul
+$pdf->SetY(50); // Sesuaikan nilai Y untuk memberikan jarak yang cukup antara gambar dan judul
+
+
 $pdf->SetFont('Times', 'B', 13);
 $pdf->Cell(200, 10, 'DATA TRANSAKSI', 0, 0, 'C');
 
