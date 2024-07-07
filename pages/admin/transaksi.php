@@ -123,6 +123,9 @@ if (!isset($_SESSION["login"])) {
           <div class="card-header pb-0 px-3 d-flex align-items-center justify-content-between">
             <h6 class="mb-0"> Data Transaksi</h6>
             <div>
+              <a href="./../../backend/exportTransaksiApprove.php" class="btn btn-warning btn-sm">
+                Cetak Data Transaksi
+              </a>
               <button class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#addTransaksiAdmin">Tambah Transaksi</button>
               <!-- <button class="btn btn-warning">Pending</button>
               <button class="btn btn-danger">Reject</button>

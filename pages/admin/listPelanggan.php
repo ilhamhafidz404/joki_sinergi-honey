@@ -128,7 +128,10 @@ if (!isset($_SESSION["login"])) {
                 <table class="table align-items-center mb-0">
                   <thead>
                     <tr>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Pelanggan</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Login</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No HP</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Lahir</th>
                       <th class="text-secondary opacity-7">Action</th>
                     </tr>
                   </thead>
@@ -136,15 +139,24 @@ if (!isset($_SESSION["login"])) {
                     <?php foreach ($pelanggan as $row) : ?>
                       <tr>
                         <td>
+                          <h6 class="mb-0 text-sm"><?= $row["nama"] ?></h6>
+                        </td>
+                        <td>
                           <div class="d-flex px-2 py-1">
                             <div class="d-flex flex-column justify-content-center">
-                              <h6 class="mb-0 text-sm"><?= $row["nama"] ?></h6>
+                              <h6 class="mb-0 text-sm"><?= $row["username"] ?></h6>
                               <p class="text-xs text-secondary mb-0"><?= $row["email"] ?></p>
                             </div>
                           </div>
                         </td>
+                        <td>
+                          <h6 class="mb-0 text-sm"><?= $row["hp"] ?></h6>
+                        </td>
+                        <td>
+                          <h6 class="mb-0 text-sm"><?= $row["lahir"] ?></h6>
+                        </td>
                         <td class="align-middle">
-                          <button class="btn btn-warning btn-sm px-3" onclick="showModalEdit(<?= $row['id_account'] ?>, '<?= $row['nama'] ?>', '<?= $row['email'] ?>', '<?= $row['password'] ?>')" data-bs-toggle="modal" data-bs-target="#editAccount">
+                          <button class="btn btn-warning btn-sm px-3" onclick="showModalEdit(<?= $row['id_account'] ?>, '<?= $row['nama'] ?>', '<?= $row['email'] ?>', '<?= $row['password'] ?>', '<?= $row['hp'] ?>', '<?= $row['lahir'] ?>')" data-bs-toggle="modal" data-bs-target="#editAccount">
                             <i class="fas fa-pen"></i>
                           </button>
                           <!-- <button class="btn btn-danger btn-sm px-3">
@@ -196,9 +208,19 @@ if (!isset($_SESSION["login"])) {
                     <input type="password" class="form-control" placeholder="Password" name="password" id="password">
                   </div>
                 </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="text" class="form-control" placeholder="No HP" name="hp" id="HP">
+                  </div>
+                </div>
+                <div class="form-group">
+                  <div class="input-group">
+                    <input type="date" class="form-control" placeholder="Tanggal Lahir" name="lahir" id="Lahir">
+                  </div>
+                </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                  <button type="submit" class="btn btn-warning" name="editProduct"> Save</button>
+                  <button type="submit" class="btn btn-warning" name="editAccount"> Save</button>
                 </div>
               </form>
             </div>
@@ -228,16 +250,20 @@ if (!isset($_SESSION["login"])) {
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
   <script>
-    const showModalEdit = (id, nama, email, password) => {
+    const showModalEdit = (id, nama, email, password, hp, lahir) => {
       const inputId = document.getElementById("id");
       const inputName = document.getElementById("nama");
       const inputEmail = document.getElementById("email");
       const inputPassword = document.getElementById("password");
+      const inputHP = document.getElementById("HP");
+      const inputLahir = document.getElementById("Lahir");
 
       inputId.value = id;
       inputName.value = nama;
       inputEmail.value = email;
       inputPassword.value = password;
+      inputHP.value = hp;
+      inputLahir.value = lahir;
     }
   </script>
 </body>

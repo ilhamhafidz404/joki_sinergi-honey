@@ -140,7 +140,7 @@ if (!isset($_SESSION["login"])) {
                               <i class="fas fa-money-bill-wave" aria-hidden="true"></i>
                               Beli Produk
                             </a>
-                            <button class="btn btn-danger w-100" name="deleteFromCart" onclick="return confirm('Yakin menmbah ke keranjang?')">
+                            <button class="btn btn-danger w-100" name="deleteFromCart" onclick="return confirm('Yakin menghapus dari keranjang?')">
                               <i class="fas fa-trash" aria-hidden="true"></i>
                               Hapus dari Keranjang
                             </button>

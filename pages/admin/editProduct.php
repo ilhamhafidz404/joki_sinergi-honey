@@ -171,6 +171,7 @@ if (!isset($_SESSION["login"])) {
                     </div>
                   </div>
                   <div class="col-12">
+                    <a href="./listProduct.php" class="btn btn-secondary">Batal</a>
                     <button class="btn btn-warning" name="submitProduct">Submit</button>
                   </div>
                 <?php endforeach; ?>
