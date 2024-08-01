@@ -36,8 +36,8 @@ if (isset($_SESSION["login"])) {
             <div class="col-xl-4 col-lg-5 col-md-7 d-flex flex-column mx-lg-0 mx-auto">
               <div class="card card-plain">
                 <div class="card-header pb-0 text-start">
-                  <h4 class="font-weight-bolder">Sign In</h4>
-                  <p class="mb-0">Enter your email and password to sign in</p>
+                  <h4 class="font-weight-bolder">Masuk</h4>
+                  <p class="mb-0">Masukkan Email dan Password untuk Masuk</p>
                 </div>
                 <div class="card-body">
                   <form role="form" action="./../../backend/auth/login.php" method="POST">
@@ -48,14 +48,14 @@ if (isset($_SESSION["login"])) {
                       <input type="password" class="form-control form-control-lg" placeholder="Password" aria-label="Password" name="password">
                     </div>
                     <div class="text-center">
-                      <button type="submit" class="btn btn-lg btn-warning btn-lg w-100 mt-4 mb-0" name="submit">Sign in</button>
+                      <button type="submit" class="btn btn-lg btn-warning btn-lg w-100 mt-4 mb-0" name="submit">Masuk</button>
                     </div>
                   </form>
                 </div>
                 <div class="card-footer text-center pt-0 px-lg-2 px-1">
                   <p class="mb-4 text-sm mx-auto">
-                    Don't have an account?
-                    <a href="./register.php" class="text-warning text-gradient font-weight-bold">Sign up</a>
+                    Tidak punya akun? silahkan
+                    <a href="./register.php" class="text-warning text-gradient font-weight-bold">Daftar</a>
                   </p>
                 </div>
               </div>

@@ -109,7 +109,7 @@ if (!isset($_SESSION["login"])) {
             <li class="nav-item d-flex align-items-center">
               <a href="./../../backend/auth/logout.php" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Log Out</span>
+                <span class="d-sm-inline d-none">Keluar</span>
               </a>
             </li>
           </ul>
@@ -179,9 +179,10 @@ if (!isset($_SESSION["login"])) {
                         </span>
                       </div>
                       <div class="ms-auto text-end d-flex">
-                        <div class="me-3">
-                          <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning  btn-sm px-3" target="_blank">
-                            <i class="fas fa-download"></i>
+                        <div class="me-2">
+                          <a href="./../../assets/images/transactions/<?= $transaction["payment_proof"] ?>" class="btn btn-warning btn-sm px-3" target="_blank">
+                            <!-- <i class="fas fa-download"></i> -->
+                            Lihat Bukti Pembayaran
                           </a>
                         </div>
                         <?php if ($transaction["status"] == "approve") : ?>

@@ -108,7 +108,7 @@ if (!isset($_SESSION["login"])) {
             <li class="nav-item d-flex align-items-center">
               <a href="./../../backend/auth/logout.php" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Log Out</span>
+                <span class="d-sm-inline d-none">Keluar</span>
               </a>
             </li>
           </ul>
@@ -129,7 +129,7 @@ if (!isset($_SESSION["login"])) {
                   <thead>
                     <tr>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Nama</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Login</th>
+                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Email</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">No HP</th>
                       <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Tanggal Lahir</th>
                       <th class="text-secondary opacity-7">Action</th>

@@ -33,7 +33,7 @@ require "./../../backend/auth/register.php";
         <div class="row justify-content-center">
           <div class="col-lg-5 text-center mx-auto">
             <h1 class="text-white mb-2 mt-5">REGISTRASI</h1>
-            <p class="text-lead text-white">Use these awesome forms to login or create new account in your project for free.</p>
+            <p class="text-lead text-white">Daftar untuk menjadi pelanggan Sinergi Honey</p>
           </div>
         </div>
       </div>
@@ -69,9 +69,9 @@ require "./../../backend/auth/register.php";
                   <input type="password" class="form-control" placeholder="Password" aria-label="Password" name="password">
                 </div>
                 <div class="text-center">
-                  <button type="submit" name="register" class="btn btn-warning w-100 my-4 mb-2">Sign up</button>
+                  <button type="submit" name="register" class="btn btn-warning w-100 my-4 mb-2">Daftar</button>
                 </div>
-                <p class="text-sm mt-3 mb-0">Already have an account? <a href="./login.php" class="text-warning font-weight-bolder">Sign in</a></p>
+                <p class="text-sm mt-3 mb-0">Sudah Punya akun? silahkan <a href="./login.php" class="text-warning font-weight-bolder">Masuk</a></p>
               </form>
             </div>
           </div>

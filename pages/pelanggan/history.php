@@ -92,7 +92,7 @@ if (!isset($_SESSION["login"])) {
             <li class="nav-item d-flex align-items-center">
               <a href="./../../backend/auth/logout.php" class="nav-link text-white font-weight-bold px-0">
                 <i class="fa fa-user me-sm-1"></i>
-                <span class="d-sm-inline d-none">Log Out</span>
+                <span class="d-sm-inline d-none">Keluar</span>
               </a>
             </li>
           </ul>
@@ -109,7 +109,7 @@ if (!isset($_SESSION["login"])) {
                 <h6 class="text-capitalize">Transaksi</h6>
               </div>
               <div>
-                <a href="./../../backend/exportAccountByAccountIdAndStatus.php" class="btn btn-sm btn-warning">Export Data Transaksi</a>
+                <a href="./../../backend/exportAccountByAccountIdAndStatus.php" class="btn btn-sm btn-warning">Lihat Data Transaksi</a>
               </div>
             </div>
             <div class="card-body pt-4 p-4">
